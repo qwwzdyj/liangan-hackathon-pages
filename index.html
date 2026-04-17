@@ -1,0 +1,3524 @@
+<!DOCTYPE html><html lang="zh-TW"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>海峽智創Hackathon 2026 | 智聯兩岸·創見未來</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;700&amp;family=Noto+Serif+SC:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Noto Serif SC', 'Songti SC', 'SimSun', 'serif'],
+                        'sans': ['Noto Sans SC', 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'sans-serif']
+                    },
+                    colors: {
+                        'sage': '#87a96b',
+                        'warm-gray': '#8b7355',
+                        'deep-blue': '#1e3a5f',
+                        'soft-beige': '#f5f1e8',
+                        'muted-green': '#6b8e6b',
+                        'background': 'hsl(var(--background))',
+                        'foreground': 'hsl(var(--foreground))',
+                        'muted': 'hsl(var(--muted))',
+                        'muted-foreground': 'hsl(var(--muted-foreground))',
+                        'primary': 'hsl(var(--primary))',
+                        'primary-foreground': 'hsl(var(--primary-foreground))',
+                        'border': 'hsl(var(--border))',
+                        'input': 'hsl(var(--input))'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --font-display: 'Noto Serif SC', serif;
+            --font-body: 'Noto Sans SC', sans-serif;
+            --background: 201 100% 13%;
+            --foreground: 0 0% 100%;
+            --muted-foreground: 240 4% 66%;
+            --primary: 0 0% 100%;
+            --primary-foreground: 0 0% 4%;
+            --secondary: 0 0% 10%;
+            --muted: 0 0% 10%;
+            --accent: 0 0% 10%;
+            --border: 0 0% 18%;
+            --input: 0 0% 18%;
+            --surface: rgba(45, 76, 108, 0.58);
+            --surface-strong: rgba(33, 58, 84, 0.78);
+            --surface-soft: rgba(255, 255, 255, 0.08);
+            --surface-border: rgba(222, 236, 248, 0.18);
+            --copy-strong: rgba(247, 250, 252, 0.96);
+            --copy-muted: rgba(189, 201, 212, 0.88);
+            --copy-soft: rgba(149, 164, 177, 0.82);
+            --gold: #e1bf74;
+            --gold-strong: #f3d894;
+            --gold-soft: rgba(225, 191, 116, 0.82);
+            --gold-faint: rgba(225, 191, 116, 0.18);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body), 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background:
+                linear-gradient(180deg, #295675 0%, #3a6c8f 35%, #507ea1 100%);
+            color: hsl(var(--foreground));
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display), 'Songti SC', serif;
+            font-weight: 400;
+        }
+
+        .font-en-display {
+            font-family: 'Instrument Serif', serif !important;
+        }
+
+        .font-cn-display {
+            font-family: 'Noto Serif SC', 'Songti SC', serif !important;
+        }
+
+        section[id] {
+            scroll-margin-top: 112px;
+        }
+
+        .liquid-glass {
+            background: rgba(8, 23, 37, 0.18);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(14px) saturate(130%);
+            -webkit-backdrop-filter: blur(14px) saturate(130%);
+            border: none;
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.12),
+                0 16px 40px rgba(0, 0, 0, 0.16);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+                rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+                rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        @keyframes fade-rise {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-rise { animation: fade-rise 0.8s ease-out both; }
+        .animate-fade-rise-delay { animation: fade-rise 0.8s ease-out 0.2s both; }
+        .animate-fade-rise-delay-2 { animation: fade-rise 0.8s ease-out 0.4s both; }
+
+        .hero-title {
+            text-wrap: balance;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .hero-copy {
+            text-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-link-active {
+            color: hsl(var(--foreground)) !important;
+        }
+
+        .hero-gold {
+            color: hsl(var(--foreground)) !important;
+        }
+
+        .hero-gold-soft {
+            color: hsl(var(--muted-foreground)) !important;
+        }
+
+        .hero-card * {
+            color: rgba(255, 255, 255, 0.96) !important;
+        }
+
+        #toc .nav-link {
+            color: hsl(var(--muted-foreground));
+        }
+
+        #toc .brand-accent {
+            color: rgba(255, 255, 255, 0.72);
+        }
+
+        #toc .nav-cta,
+        #toc .lang-toggle {
+            color: hsl(var(--foreground));
+        }
+
+        #toc .nav-link:hover,
+        #toc .nav-cta:hover,
+        #toc .lang-toggle:hover {
+            color: hsl(var(--foreground));
+        }
+
+        main > section:not(#hero) {
+            position: relative;
+            background:
+                linear-gradient(135deg, rgba(114, 164, 206, 0.18) 0%, rgba(84, 144, 190, 0.08) 36%, rgba(255, 255, 255, 0.03) 100%),
+                linear-gradient(180deg, rgba(41, 78, 110, 0.95) 0%, rgba(55, 92, 125, 0.98) 100%) !important;
+            color: hsl(var(--foreground));
+        }
+
+        main > section:nth-of-type(even):not(#hero) {
+            background:
+                linear-gradient(135deg, rgba(150, 196, 220, 0.12) 0%, rgba(112, 171, 208, 0.08) 44%, rgba(255, 255, 255, 0.02) 100%),
+                linear-gradient(180deg, rgba(52, 86, 117, 0.95) 0%, rgba(65, 101, 133, 0.98) 100%) !important;
+        }
+
+        main > section:not(#hero) .bg-white,
+        main > section:not(#hero) .bg-gray-50,
+        main > section:not(#hero) .bg-yellow-50,
+        main > section:not(#hero) table,
+        main > section:not(#hero) .bg-gradient-to-r.from-deep-blue.to-sage {
+            background: var(--surface) !important;
+            border: 1px solid var(--surface-border) !important;
+            box-shadow: 0 20px 40px rgba(6, 18, 31, 0.14) !important;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        main > section:not(#hero) .bg-gradient-to-r.from-deep-blue.to-sage,
+        main > section:not(#hero) .bg-gradient-to-br.from-deep-blue.to-muted-green {
+            background: linear-gradient(135deg, rgba(71, 112, 150, 0.9), rgba(88, 133, 172, 0.84)) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        }
+
+        main > section:not(#hero) .shadow-sm,
+        main > section:not(#hero) .shadow-lg {
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18) !important;
+        }
+
+        main > section:not(#hero) .text-gray-900,
+        main > section:not(#hero) .text-gray-800,
+        main > section:not(#hero) .text-gray-700,
+        main > section:not(#hero) .text-black,
+        main > section:not(#hero) .text-gray-950 {
+            color: var(--copy-strong) !important;
+        }
+
+        main > section:not(#hero) .text-gray-600,
+        main > section:not(#hero) .text-gray-500,
+        main > section:not(#hero) .text-gray-400 {
+            color: var(--copy-muted) !important;
+        }
+
+        main > section:not(#hero) .text-deep-blue {
+            color: #eff7ff !important;
+        }
+
+        main > section:not(#hero) .text-sage {
+            color: #a9c6eb !important;
+        }
+
+        main > section:not(#hero) .text-warm-gray {
+            color: #f2c89a !important;
+        }
+
+        main > section:not(#hero) .text-muted-green {
+            color: #c6d7ef !important;
+        }
+
+        main > section:not(#hero) .bg-sage {
+            background-color: #3e6089 !important;
+        }
+
+        main > section:not(#hero) .bg-sage\/10 {
+            background-color: rgba(62, 96, 137, 0.14) !important;
+        }
+
+        main > section:not(#hero) .border-sage {
+            border-color: rgba(118, 152, 196, 0.55) !important;
+        }
+
+        main > section:not(#hero) .bg-muted-green {
+            background-color: #627c9c !important;
+        }
+
+        main > section:not(#hero) .bg-muted-green\/10 {
+            background-color: rgba(98, 124, 156, 0.14) !important;
+        }
+
+        main > section:not(#hero) .border-muted-green {
+            border-color: rgba(151, 176, 209, 0.55) !important;
+        }
+
+        .feature-icon {
+            width: 28px;
+            height: 28px;
+            color: #ffffff;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-icon-fill {
+            fill: currentColor;
+            stroke: none;
+        }
+
+        .brief-card {
+            background: linear-gradient(180deg, rgba(34, 57, 81, 0.72), rgba(27, 49, 72, 0.82));
+            border: 1px solid rgba(214, 229, 242, 0.16);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 18px 36px rgba(6, 18, 31, 0.12);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .brief-card h3,
+        .brief-card h4,
+        .brief-card h5 {
+            font-family: 'Noto Serif SC', 'Songti SC', serif;
+        }
+
+        .eyebrow {
+            color: rgba(220, 232, 244, 0.72);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .dense-table th,
+        .dense-table td {
+            padding: 14px 18px;
+            vertical-align: top;
+        }
+
+        .dense-table th {
+            font-weight: 600;
+        }
+
+        main > section:not(#hero) .text-yellow-700,
+        main > section:not(#hero) .text-yellow-600 {
+            color: #ffd86b !important;
+        }
+
+        main > section:not(#hero) .border-yellow-400 {
+            border-color: rgba(255, 216, 107, 0.45) !important;
+        }
+
+        main > section:not(#hero) .border-gray-200,
+        main > section:not(#hero) .border-t {
+            border-color: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        main > section:not(#hero) .border-l-4.border-deep-blue,
+        main > section:not(#hero) .border-l-4.border-sage,
+        main > section:not(#hero) .border-l-4.border-warm-gray,
+        main > section:not(#hero) .border-l-4.border-muted-green,
+        main > section:not(#hero) .border-l-4.border-sage {
+            border-left-color: rgba(255, 255, 255, 0.18) !important;
+        }
+
+        main > section:not(#hero) blockquote {
+            color: var(--copy-strong) !important;
+        }
+
+        main > section:not(#hero) p,
+        main > section:not(#hero) li,
+        main > section:not(#hero) td,
+        main > section:not(#hero) th,
+        main > section:not(#hero) span {
+            letter-spacing: 0;
+        }
+
+        main > section:not(#hero) strong,
+        main > section:not(#hero) b {
+            color: var(--copy-strong) !important;
+        }
+
+        main > section:not(#hero) table {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        main > section:not(#hero) thead {
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        main > section:not(#hero) tbody tr {
+            background: transparent !important;
+        }
+
+        main > section:not(#hero) tbody tr + tr td {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        main > section:not(#hero) img.rounded-lg {
+            filter: saturate(0.9) contrast(1.02);
+        }
+
+        /* Mermaid diagram styling */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: linear-gradient(180deg, rgba(8, 21, 33, 0.98), rgba(11, 27, 42, 0.98));
+            border: 1px solid rgba(225, 191, 116, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none; /* 防止触摸设备上的默认行为 */
+            -webkit-user-select: none; /* 防止文本选择 */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(11, 23, 35, 0.88);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(225, 191, 116, 0.18);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+        }
+
+        .mermaid-control-btn {
+            background: rgba(225, 191, 116, 0.08);
+            border: 1px solid rgba(225, 191, 116, 0.18);
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--gold-strong);
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: rgba(225, 191, 116, 0.18);
+            border-color: rgba(243, 216, 148, 0.45);
+            color: #fff1c7;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Enhanced mermaid node styling for better contrast */
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            stroke-width: 2px !important;
+            fill-opacity: 0.98 !important;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2));
+        }
+
+        .mermaid .label,
+        .mermaid .node text,
+        .mermaid .edgeLabel p {
+            font-weight: 500 !important;
+            font-size: 13px !important;
+            fill: #f7ebcc !important;
+            color: #f7ebcc !important;
+            text-shadow: none !important;
+        }
+
+        .mermaid .edgePath path {
+            stroke: rgba(225, 191, 116, 0.62) !important;
+            stroke-width: 2.2px !important;
+        }
+
+        .mermaid .arrowheadPath {
+            fill: rgba(225, 191, 116, 0.72) !important;
+        }
+
+        .mermaid .edgeLabel {
+            background-color: rgba(11, 23, 35, 0.94) !important;
+            border: 1px solid rgba(225, 191, 116, 0.18) !important;
+            border-radius: 6px !important;
+            padding: 2px 6px !important;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+            color: #f7ebcc !important;
+        }
+
+        .mermaid .cluster rect {
+            fill: rgba(225, 191, 116, 0.04) !important;
+            stroke: rgba(225, 191, 116, 0.16) !important;
+        }
+        /* Responsive adjustments for mermaid controls */
+        @media (max-width: 1024px) {
+            .mermaid-control-btn:not(.reset-zoom) {
+                display: none;
+            }
+            .mermaid-controls {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+    <style>
+        /* Language Toggle Button */
+        .lang-toggle {
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 50px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            transition: all 0.3s ease;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .lang-toggle:hover {
+            transform: scale(1.03);
+        }
+        .lang-toggle .lang-icon {
+            font-size: 14px;
+        }
+        @media (max-width: 1024px) {
+            .lang-toggle {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="font-sans leading-relaxed overflow-x-hidden">
+    <nav id="toc" class="fixed inset-x-0 top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 py-6">
+        <div class="liquid-glass flex items-center justify-between rounded-full px-4 py-3 sm:px-6">
+          <a href="#hero" class="hero-gold shrink-0 text-xl sm:text-3xl tracking-tight">
+            <span class="font-cn-display">海峡智创</span><span class="brand-accent font-en-display ml-2 text-sm sm:text-xl">Hackathon 2026</span>
+          </a>
+          <div class="hidden md:flex items-center gap-6 lg:gap-8">
+            <a href="#leadership-overview" class="nav-link text-sm transition-colors">项目背景</a>
+            <a href="#competition-model" class="nav-link text-sm transition-colors">赛制设计</a>
+            <a href="#timeline-plan" class="nav-link text-sm transition-colors">时间规划</a>
+            <a href="#budget-plan" class="nav-link text-sm transition-colors">预算资源</a>
+            <a href="#execution-plan" class="nav-link text-sm transition-colors">执行计划</a>
+          </div>
+          <div class="flex items-center gap-2 sm:gap-3">
+            <div class="lang-toggle liquid-glass" id="langToggle" onclick="toggleLang()">
+              <span class="lang-icon">繁</span>
+              <span id="langLabel">切換簡體</span>
+            </div>
+            <a href="#leadership-overview" class="nav-cta liquid-glass inline-flex rounded-full px-4 py-2.5 text-sm transition-transform duration-300 hover:scale-[1.03] sm:px-6">
+              查看方案
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="relative">
+      <section id="hero" class="relative flex min-h-screen items-center justify-center overflow-hidden text-foreground">
+        <video class="absolute inset-0 z-0 h-full w-full object-cover" autoPlay loop muted playsInline>
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4"/>
+        </video>
+
+        <div class="relative z-10 flex min-h-screen w-full items-center justify-center px-6 pt-32 pb-24 sm:pb-28 py-[90px]">
+          <div class="mx-auto flex max-w-7xl flex-col items-center text-center">
+            <div class="liquid-glass hero-gold animate-fade-rise inline-flex rounded-full px-5 py-2 text-sm">
+              2026年6月20-22日 · 厦门
+            </div>
+
+            <h1 class="hero-title hero-gold animate-fade-rise mt-8 max-w-7xl text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-[-1.4px] font-normal">
+              <span class="font-cn-display">海峡智创</span>
+              <span class="font-en-display block tracking-[-2.46px]"><em class="hero-gold not-italic">Hackathon 2026</em></span>
+            </h1>
+
+            <p class="hero-copy hero-gold-soft animate-fade-rise-delay mt-8 text-lg sm:text-xl">
+              智联两岸 · 创见未来
+            </p>
+
+            <p class="hero-copy hero-gold-soft animate-fade-rise-delay mt-6 max-w-3xl text-base sm:text-lg leading-relaxed">
+              本方案策划“海峡智创Hackathon 2026”——一场以“智联两岸·创见未来”为主题的海峡两岸青年AI创新黑客松，定于2026年6月20-22日在厦门举办。赛事采用“线上预热+线下决战”双轨模式，聚焦AI+产业应用、AIGC两大赛道。
+            </p>
+
+            <a href="#leadership-overview" class="hero-gold liquid-glass animate-fade-rise-delay-2 mt-12 inline-flex cursor-pointer rounded-full px-10 py-4 text-base transition-transform duration-300 hover:scale-[1.03] sm:px-14 sm:py-5">
+              查看完整方案
+            </a>
+
+            <div class="mt-14 grid w-full max-w-5xl grid-cols-1 gap-3 text-left sm:grid-cols-2 xl:grid-cols-4">
+              <div class="hero-card liquid-glass rounded-lg px-5 py-4">
+                <div class="text-sm">赛事规模</div>
+                <div class="mt-2 text-lg">300-400人</div>
+                <p class="mt-2 text-sm leading-6">80-100支两岸混编团队现场竞技</p>
+              </div>
+              <div class="hero-card liquid-glass rounded-lg px-5 py-4">
+                <div class="text-sm">核心赛道</div>
+                <div class="mt-2 text-lg">两大方向</div>
+                <p class="mt-2 text-sm leading-6">AI+产业应用与AIGC赛道同步推进</p>
+              </div>
+              <div class="hero-card liquid-glass rounded-lg px-5 py-4">
+                <div class="text-sm">两岸协作</div>
+                <div class="mt-2 text-lg">深度混编</div>
+                <p class="mt-2 text-sm leading-6">结合政治视窗与青年协同创新场景</p>
+              </div>
+              <div class="hero-card liquid-glass rounded-lg px-5 py-4">
+                <div class="text-sm">奖金资源</div>
+                <div class="mt-2 text-lg">38万元</div>
+                <p class="mt-2 text-sm leading-6">总奖金加产业孵化资源联动释放</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Summary -->
+      <section id="summary" class="bg-white py-16">
+        <div class="max-w-4xl mx-auto px-8">
+          <div class="prose prose-lg max-w-none">
+            <blockquote class="border-l-4 border-sage pl-6 italic text-xl text-gray-700 mb-8">
+              &#34;本方案策划&#39;海峡智创Hackathon 2026&#39;——一场以&#39;智联两岸·创见未来&#39;为主题的海峡两岸青年AI创新黑客松，定于2026年6月20-22日在厦门举办。赛事采用&#39;线上预热+线下决战&#39;双轨模式，聚焦AI+产业应用、AIGC两大赛道。&#34;
+            </blockquote>
+
+            <div class="bg-gray-50 rounded-lg p-8 mb-12">
+              <h3 class="text-2xl font-bold text-deep-blue mb-6">核心要点</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 class="font-semibold text-lg mb-3">赛事规模</h4>
+                  <ul class="space-y-2 text-gray-600">
+                    <li>• 80-100支两岸混编团队（300-400人）</li>
+                    <li>• 台湾团队占比30%-40%</li>
+                    <li>• 线上覆盖2000+开发者</li>
+                    <li>• 观展人次5000+</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-lg mb-3">资源配置</h4>
+                  <ul class="space-y-2 text-gray-600">
+                    <li>• 总预算控制在200万元</li>
+                    <li>• 15人权威评审委员会</li>
+                    <li>• 魔搭社区、字节跳动、阿里等顶级企业协办</li>
+                    <li>• 清华、台大等学术支持</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="leadership-overview" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="mb-10 text-center">
+            <div class="eyebrow">Leadership Brief</div>
+            <h2 class="mt-3 text-4xl text-deep-blue">项目背景与赛事愿景</h2>
+          </div>
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1.35fr_0.95fr]">
+            <div class="brief-card">
+              <p class="text-base leading-8 text-gray-600">
+                海峡两岸高校黑客松联赛定位为连接大陆与台湾青年技术人才的年度创新竞技平台。赛事响应两岸科技融合发展的长期需求，致力于搭建一个公平、开放、专业的交流环境，让高校学子在实战中锤炼技术能力，在协作中增进相互了解。
+              </p>
+              <p class="mt-6 text-base leading-8 text-gray-600">
+                赛事的核心目标是构建一个可持续的赛事生态。这不仅是一场比赛，更是一个连接高校、企业、资本与创新项目的生态系统。通过赛事，我们期望实现产学研的深度结合，为两岸科技产业持续输送具备实战能力的优质人才与具有市场潜力的早期项目。
+              </p>
+              <p class="mt-6 text-base leading-8 text-gray-600">
+                从战略层面看，成功举办联赛将显著提升主办方在两岸青年科技社群中的品牌影响力，建立起覆盖重点高校的合作网络，并为赛事的长期商业化运营探索可行路径。
+              </p>
+            </div>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div class="brief-card">
+                <div class="eyebrow">定位</div>
+                <h3 class="mt-3 text-2xl text-deep-blue">年度两岸青年技术竞技平台</h3>
+                <p class="mt-3 text-sm leading-7 text-gray-600">以高校黑客松为抓手，建立面向大陆与台湾高校学生的长期品牌赛事。</p>
+              </div>
+              <div class="brief-card">
+                <div class="eyebrow">目标</div>
+                <h3 class="mt-3 text-2xl text-deep-blue">可持续赛事生态</h3>
+                <p class="mt-3 text-sm leading-7 text-gray-600">从单次赛事延伸到高校、产业、资本、项目的持续连接与转化机制。</p>
+              </div>
+              <div class="brief-card">
+                <div class="eyebrow">价值</div>
+                <h3 class="mt-3 text-2xl text-deep-blue">产学研协同输出</h3>
+                <p class="mt-3 text-sm leading-7 text-gray-600">为科技产业输送具备实战能力的人才，并沉淀具备市场潜力的早期项目。</p>
+              </div>
+              <div class="brief-card">
+                <div class="eyebrow">成果</div>
+                <h3 class="mt-3 text-2xl text-deep-blue">品牌与网络双沉淀</h3>
+                <p class="mt-3 text-sm leading-7 text-gray-600">提升主办方影响力，建立重点高校合作网络，验证后续商业化运营路径。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="competition-model" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="mb-10 text-center">
+            <div class="eyebrow">Competition Model</div>
+            <h2 class="mt-3 text-4xl text-deep-blue">三阶段赛制设计与整体流程</h2>
+            <p class="mx-auto mt-5 max-w-4xl text-base leading-8 text-gray-600">
+              联赛采用线上初赛、线下复赛、线下决赛的三阶段递进赛制，兼顾赛事覆盖面、参与深度与巅峰对决的专业性。各阶段通过明确的晋级规则与时间安排紧密衔接，并为参赛选手提供信息通知、交通指引、技术答疑在内的全程支持服务。
+            </p>
+          </div>
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div class="brief-card">
+              <div class="eyebrow">Stage 1</div>
+              <h3 class="mt-3 text-2xl text-deep-blue">线上初赛阶段</h3>
+              <p class="mt-4 text-sm leading-7 text-gray-600">
+                面向两岸所有高校在校生开放报名。参赛队伍在指定时间内于线上竞赛平台提交项目作品，作品需包含可运行的原型、技术文档与演示视频。
+              </p>
+              <p class="mt-4 text-sm leading-7 text-gray-600">
+                评审委员会将依据创新性、技术实现、商业潜力、团队协作四个维度进行盲审打分，筛选出晋级复赛的队伍。该阶段核心在于降低参与门槛，扩大赛事影响力。
+              </p>
+            </div>
+            <div class="brief-card">
+              <div class="eyebrow">Stage 2</div>
+              <h3 class="mt-3 text-2xl text-deep-blue">线下复赛阶段</h3>
+              <p class="mt-4 text-sm leading-7 text-gray-600">
+                晋级队伍前往由合作高校承办的复赛站点进行线下路演与答辩。承办高校需提供满足路演、开发及评审需求的场地与基础网络支持。
+              </p>
+              <p class="mt-4 text-sm leading-7 text-gray-600">
+                各复赛站点将产生区域优胜队伍，获得晋级全国总决赛的资格。此阶段强调在地化连接与深度交流，提升赛事体验与高校参与度。
+              </p>
+            </div>
+            <div class="brief-card">
+              <div class="eyebrow">Stage 3</div>
+              <h3 class="mt-3 text-2xl text-deep-blue">线下决赛阶段</h3>
+              <p class="mt-4 text-sm leading-7 text-gray-600">
+                所有晋级队伍汇聚厦门，进行为期2-3天的巅峰对决。除最终项目演示与答辩外，增设技术 workshop、产业交流会、投资对接等环节。
+              </p>
+              <p class="mt-4 text-sm leading-7 text-gray-600">
+                评审团由顶尖技术专家、知名投资人与产业领袖共同组成，确保评审的专业性与权威性，最终产生冠、亚、季军及多项单项奖。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="timeline-plan" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="mb-10 text-center">
+            <div class="eyebrow">Timeline</div>
+            <h2 class="mt-3 text-4xl text-deep-blue">赛程时间节点规划</h2>
+            <p class="mx-auto mt-5 max-w-3xl text-base leading-8 text-gray-600">
+              以下为联赛从启动到落幕的全流程时间规划，关键节点均预留缓冲期，以应对资源协调、政策沟通与执行层面的突发情况。
+            </p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="dense-table w-full bg-white rounded-lg shadow-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="text-left text-gray-800">阶段</th>
+                  <th class="text-left text-gray-800">预计时间</th>
+                  <th class="text-left text-gray-800">关键节点</th>
+                  <th class="text-left text-gray-800">说明</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="font-medium text-deep-blue">筹备启动期</td>
+                  <td class="text-gray-600">2026年4月 - 5月</td>
+                  <td class="text-gray-600">方案定稿、核心团队组建、首批合作方签约</td>
+                  <td class="text-gray-600">完成整体方案与预算审批，确立运营团队，敲定首批高校与资本合作方。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">宣传与报名</td>
+                  <td class="text-gray-600">2026年5月</td>
+                  <td class="text-gray-600">赛事官网/平台上线、宣传物料发布、报名通道开放</td>
+                  <td class="text-gray-600">启动全渠道宣传，吸引两岸高校学生组队报名，预计招募500+支队伍。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">线上初赛</td>
+                  <td class="text-gray-600">2026年5月底</td>
+                  <td class="text-gray-600">作品提交截止、线上评审、晋级名单公布</td>
+                  <td class="text-gray-600">参赛队伍线上开发并提交作品，评审团进行线上评审，筛选出约100支队伍进入复赛。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">线下复赛</td>
+                  <td class="text-gray-600">2026年6月</td>
+                  <td class="text-gray-600">各复赛站点承办确认、复赛举办、区域晋级名单公布</td>
+                  <td class="text-gray-600">在合作高校（大陆及台湾）同步举办线下复赛，各站点产出晋级总决赛队伍。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">线下决赛</td>
+                  <td class="text-gray-600">2026年7月</td>
+                  <td class="text-gray-600">决赛选手集结厦门、决赛日竞赛与评审、颁奖典礼</td>
+                  <td class="text-gray-600">在厦门举办为期2-3天的总决赛暨颁奖典礼，同期举办产业论坛与交流活动。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">收尾与总结</td>
+                  <td class="text-gray-600">2026年7月底</td>
+                  <td class="text-gray-600">赛事成果发布、项目跟踪、财务结算、经验复盘</td>
+                  <td class="text-gray-600">发布赛事白皮书，对优秀项目进行持续跟踪，完成全部财务与审计工作。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="budget-plan" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="mb-10 text-center">
+            <div class="eyebrow">Budget & Resources</div>
+            <h2 class="mt-3 text-4xl text-deep-blue">初步预算规划</h2>
+            <p class="mx-auto mt-5 max-w-4xl text-base leading-8 text-gray-600">
+              赛事总预算建议控制在200万元以内。以下为面向领导审批的高层预算口径，便于后续按商务洽谈和高校资源置换情况进行动态调整。所有金额均为人民币。
+            </p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="dense-table w-full bg-white rounded-lg shadow-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="text-left text-gray-800">预算项</th>
+                  <th class="text-left text-gray-800">单项金额（元）</th>
+                  <th class="text-left text-gray-800">数量/单位</th>
+                  <th class="text-left text-gray-800">合计（元）</th>
+                  <th class="text-left text-gray-800">备注</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="font-medium text-deep-blue">一、赛事运营</td>
+                  <td class="text-gray-600">440,000</td>
+                  <td class="text-gray-600">1项</td>
+                  <td class="text-gray-600">440,000</td>
+                  <td class="text-gray-600">涵盖活动策划、线上运营、线下统筹、竞赛平台搭建维护、视觉系统、宣传物料与赛后资料整理。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">二、场地费用</td>
+                  <td class="text-gray-600">420,000</td>
+                  <td class="text-gray-600">复赛4站 + 决赛3天</td>
+                  <td class="text-gray-600">420,000</td>
+                  <td class="text-gray-600">复赛高校场地以合作置换为主，决赛厦门场地含主会场、分会场及基础搭建与设备支持。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">三、奖金池</td>
+                  <td class="text-gray-600">380,000</td>
+                  <td class="text-gray-600">冠亚季军 + 4项单项奖</td>
+                  <td class="text-gray-600">380,000</td>
+                  <td class="text-gray-600">维持赛事激励力度，同时叠加产业孵化资源、云资源及创业支持。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">四、评委/嘉宾费用</td>
+                  <td class="text-gray-600">240,000</td>
+                  <td class="text-gray-600">25人次</td>
+                  <td class="text-gray-600">240,000</td>
+                  <td class="text-gray-600">覆盖评审专家劳务费、演讲嘉宾邀请与差旅安排。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">五、选手支持</td>
+                  <td class="text-gray-600">320,000</td>
+                  <td class="text-gray-600">决赛50人 + 报名选手500人</td>
+                  <td class="text-gray-600">320,000</td>
+                  <td class="text-gray-600">包含决赛交通补贴、食宿安排、保险及基础参赛物料包。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">六、不可预见费</td>
+                  <td class="text-gray-600">120,000</td>
+                  <td class="text-gray-600">1项</td>
+                  <td class="text-gray-600">120,000</td>
+                  <td class="text-gray-600">按总预算约6%预留，应对天气、技术故障、公共卫生等突发情况。</td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-deep-blue">七、其他</td>
+                  <td class="text-gray-600">80,000</td>
+                  <td class="text-gray-600">1项</td>
+                  <td class="text-gray-600">80,000</td>
+                  <td class="text-gray-600">行政杂费、法务审核、合同文本与基础办公通讯支出。</td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-deep-blue">预算总计</td>
+                  <td class="text-gray-600">2,000,000</td>
+                  <td class="text-gray-600">-</td>
+                  <td class="font-semibold text-deep-blue">2,000,000</td>
+                  <td class="text-gray-600">高层审批版本，执行版明细可依据合作落地情况进一步拆分。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="resource-plan" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="mb-10 text-center">
+            <div class="eyebrow">University & Industry Network</div>
+            <h2 class="mt-3 text-4xl text-deep-blue">高校资源对接与产业规划</h2>
+          </div>
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            <div class="brief-card">
+              <h3 class="text-2xl text-deep-blue">高校资源对接规划</h3>
+              <p class="mt-4 text-sm leading-7 text-gray-600">赛事成功离不开两岸高校的深度支持。以下为拟对接的核心高校资源，部分联系人待进一步洽谈确定。</p>
+              <div class="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div>
+                  <h4 class="text-lg text-deep-blue">大陆高校</h4>
+                  <ul class="mt-3 space-y-2 text-sm text-gray-600">
+                    <li>清华大学</li>
+                    <li>北京大学</li>
+                    <li>香港大学</li>
+                    <li>上海交通大学</li>
+                    <li>同济大学</li>
+                    <li>南京大学</li>
+                    <li>东南大学</li>
+                    <li>浙江大学</li>
+                    <li>哈尔滨工业大学</li>
+                    <li>东北大学</li>
+                    <li>西安交通大学</li>
+                    <li>厦门大学</li>
+                    <li>集美大学</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="text-lg text-deep-blue">台湾高校</h4>
+                  <ul class="mt-3 space-y-2 text-sm text-gray-600">
+                    <li>台湾大学</li>
+                    <li>清华大学（新竹）</li>
+                    <li>阳明交通大学</li>
+                    <li>台湾科技大学</li>
+                    <li>台北科技大学</li>
+                    <li>成功大学</li>
+                    <li>政治大学</li>
+                    <li>中山大学</li>
+                    <li>中兴大学</li>
+                    <li>台湾师范大学</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="brief-card">
+              <h3 class="text-2xl text-deep-blue">资本方与产业资源规划</h3>
+              <div class="mt-6 overflow-x-auto">
+                <table class="dense-table w-full">
+                  <thead>
+                    <tr>
+                      <th class="text-left text-gray-800">资源类型</th>
+                      <th class="text-left text-gray-800">合作方名称</th>
+                      <th class="text-left text-gray-800">合作形式</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr>
+                      <td class="font-medium text-deep-blue">导师资源</td>
+                      <td class="text-gray-600">知名科技公司CTO/技术专家、成功创业者/投资人、往届优秀获奖选手</td>
+                      <td class="text-gray-600">决赛评审、赛前培训、创业辅导、分享嘉宾、校园大使</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium text-deep-blue">产业资源</td>
+                      <td class="text-gray-600">云服务提供商、硬件科技公司、开放数据平台</td>
+                      <td class="text-gray-600">云资源赞助、开发板/设备赞助、赛事专用数据集或API支持</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium text-deep-blue">孵化支持</td>
+                      <td class="text-gray-600">知名创业孵化器、产业园区</td>
+                      <td class="text-gray-600">决赛奖项合作、免租工位、政策支持、投资对接</td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium text-deep-blue">媒体宣传</td>
+                      <td class="text-gray-600">科技媒体/社区、高校自媒体矩阵、黑客松社群</td>
+                      <td class="text-gray-600">媒体合作伙伴、内容共建传播、社群宣发</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="execution-plan" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="mb-10 text-center">
+            <div class="eyebrow">Execution</div>
+            <h2 class="mt-3 text-4xl text-deep-blue">执行团队与下一步计划</h2>
+          </div>
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.05fr]">
+            <div class="brief-card">
+              <h3 class="text-2xl text-deep-blue">核心团队分工</h3>
+              <ul class="mt-6 space-y-4 text-sm leading-7 text-gray-600">
+                <li><strong class="text-gray-800">赛事总监：</strong>负责整体战略、资源统筹与最终决策。</li>
+                <li><strong class="text-gray-800">运营团队：</strong>负责赛程执行、选手服务、现场管理与后勤保障。</li>
+                <li><strong class="text-gray-800">技术团队：</strong>负责竞赛平台开发维护、线上评审系统及现场技术支持。</li>
+                <li><strong class="text-gray-800">高校关系组：</strong>负责两岸合作高校的对接、维护及学术资源整合。</li>
+                <li><strong class="text-gray-800">商务拓展组：</strong>负责赞助商、投资机构、媒体等外部合作伙伴的开拓与维护。</li>
+                <li><strong class="text-gray-800">品牌宣传组：</strong>负责赛事全渠道品牌传播、内容制作与媒体关系。</li>
+              </ul>
+            </div>
+            <div class="brief-card">
+              <h3 class="text-2xl text-deep-blue">近期重点工作（未来1-2个月）</h3>
+              <ul class="mt-6 space-y-4 text-sm leading-7 text-gray-600">
+                <li><strong class="text-gray-800">方案细化与预算审批：</strong>完成内部评审，根据反馈调整细节，推动预算正式批准。</li>
+                <li><strong class="text-gray-800">首批资源对接启动：</strong>启动与3-5所重点目标高校及2-3家潜在冠名赞助商的初步接触。</li>
+                <li><strong class="text-gray-800">赛事平台原型开发：</strong>启动线上竞赛平台需求确认与原型设计。</li>
+                <li><strong class="text-gray-800">宣传物料基础准备：</strong>完成赛事LOGO、主视觉、宣传片脚本等核心品牌资产设计。</li>
+                <li><strong class="text-gray-800">法律与风险预案：</strong>完成赛事合作协议模板、免责条款及各类风险应对预案起草。</li>
+              </ul>
+              <div class="mt-8 rounded-lg border border-white/10 bg-white/5 p-5">
+                <h4 class="text-lg text-deep-blue">风险控制要点</h4>
+                <p class="mt-3 text-sm leading-7 text-gray-600">
+                  已初步识别政策风险、资金风险、执行风险三大类。应对策略包括：密切跟进两岸交流政策导向，确保赛事合规性；采取分阶段、多元化的合作商筹措方案，避免依赖单一来源；制定详细的应急预案，覆盖天气、技术故障、公共卫生等突发情况。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Positioning Section -->
+      <section id="positioning" class="bg-soft-beige py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">赛事定位与目标</h2>
+
+          <!-- Theme and Naming -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">主题与命名体系</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-sage mb-4">主标题</h4>
+                <p class="text-gray-700 mb-3">海峡智创Hackathon 2026</p>
+                <p class="text-sm text-gray-600 italic">&#34;海峡&#34;点明地理联结，&#34;智创&#34;概括AI时代创新本质</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-sage mb-4">英文名称</h4>
+                <p class="text-gray-700 mb-3">StraitAI Hackathon 2026</p>
+                <p class="text-sm text-gray-600 italic">Connecting Minds, Creating Future</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-sage mb-4">副主题</h4>
+                <p class="text-gray-700 mb-3">人工智能时代的两岸青年协同创新</p>
+                <p class="text-sm text-gray-600 italic">呼应2026年AI技术爆发与两岸关系新机遇</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Core Values -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">核心价值主张</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-deep-blue">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-cogs text-deep-blue text-xl mr-3"></i>
+                  <h4 class="font-semibold">技术融合</h4>
+                </div>
+                <p class="text-gray-600 text-sm">打造AI+产业应用、AIGC领域的技术交流平台</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-sage">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-users-cog text-sage text-xl mr-3"></i>
+                  <h4 class="font-semibold">青年联结</h4>
+                </div>
+                <p class="text-gray-600 text-sm">构建两岸青年开发者深度协作的常态化机制</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-warm-gray">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-industry text-warm-gray text-xl mr-3"></i>
+                  <h4 class="font-semibold">产业对接</h4>
+                </div>
+                <p class="text-gray-600 text-sm">促进创新成果向实际应用场景转化</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-muted-green">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-heart text-muted-green text-xl mr-3"></i>
+                  <h4 class="font-semibold">文化认同</h4>
+                </div>
+                <p class="text-gray-600 text-sm">以技术创新为载体，增进两岸青年文化理解</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technology Focus -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">技术聚焦领域</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <h4 class="text-lg font-semibold text-deep-blue mb-3">AI+产业应用</h4>
+                  <p class="text-gray-600 mb-3">智能制造、智慧农业、智慧医疗等产业转型解决方案，软件赛道与硬件赛道均欢迎参与</p>
+                  <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-industry mr-2"></i>
+                    <span>响应"人工智能+"国家战略，软件与硬件双轨并行</span>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <h4 class="text-lg font-semibold text-muted-green mb-3">AIGC赛道</h4>
+                  <p class="text-gray-600 mb-3">AI生成内容创新应用，重点关注短视频生成、数字内容创作、多模态AI创意等方向</p>
+                  <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-video mr-2"></i>
+                    <span>聚焦AI生成短视频等内容创新</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Political Context -->
+          <div class="bg-white rounded-lg p-8 shadow-sm mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">政策背景与资源对接</h3>
+            <div class="space-y-6">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 bg-deep-blue rounded-full flex items-center justify-center">
+                  <i class="fas fa-calendar-alt text-white text-sm"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-2">政治契机</h4>
+                  <p class="text-gray-600">国民党主席郑丽文2026年4月率团访问大陆，国共两党智库论坛达成15条共同意见，为两岸机制化交流注入新动能</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 bg-sage rounded-full flex items-center justify-center">
+                  <i class="fas fa-handshake text-white text-sm"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-2">机制化青年交流平台</h4>
+                  <p class="text-gray-600">建立国共两党青年双向交流机制化平台。全国青联与国民党青年事务发展委员会定期举办两岸青年交流活动，全国青联等大陆有关单位每年邀请岛内20个青年团组来大陆交流参访，为赛事形成稳定的青年动员与后续转化通道。</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 bg-warm-gray rounded-full flex items-center justify-center">
+                  <i class="fas fa-landmark text-white text-sm"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-2">两岸青年创业基金</h4>
+                  <p class="text-gray-600">结合两岸青年创业基金，利用现有的两岸青年创业政策补贴，方便对岸学生来大陆创业，增进彼此了解</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 bg-muted-green rounded-full flex items-center justify-center">
+                  <i class="fas fa-users text-white text-sm"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-2">厦门"AI产业+"政策与高层参与</h4>
+                  <p class="text-gray-600">厦门预计在2026年6月正式落实"AI产业+"政策，结合市政府资源可提供有力协助；同时邀请国民党青年团代表、大陆台办领导出席开幕式，提升赛事权威性和媒体关注度。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Organization Section -->
+      <section id="organization" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">组织架构设计</h2>
+
+          <!-- Organization Structure -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">组织架构图</h3>
+            <div class="mermaid-container">
+              <div class="mermaid-controls">
+                <button class="mermaid-control-btn zoom-in" title="放大">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="mermaid-control-btn zoom-out" title="缩小">
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="mermaid-control-btn reset-zoom" title="重置">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+              <div class="mermaid">
+                graph TD
+                A[&#34;主办单位&#34;] --&gt; B[&#34;承办单位&#34;]
+                B --&gt; C[&#34;协办单位&#34;]
+                C --&gt; D[&#34;核心工作小组&#34;]
+
+                A1[&#34;国台办交流局
+                <br/>中国科协青少年科技中心&#34;] --&gt; B
+                A2[&#34;国民党青年部
+                <br/>特邀联合主办&#34;] --&gt; B
+                A3[&#34;清华AII/台大电机资讯学院
+                <br/>学术支持&#34;] --&gt; B
+
+                B1[&#34;厦门市海峡两岸交流协会
+                <br/>厦门火炬高新区管委会&#34;] --&gt; C
+                B2[&#34;专业赛事运营机构
+                <br/>运营支持&#34;] --&gt; C
+
+                C1[&#34;魔搭社区/字节跳动/Datawhale
+                <br/>AMD/MINIMAX/KIMI/智谱/阿里&#34;] --&gt; D
+                C2[&#34;两岸清华/浙大
+                <br/>台科大/北科大&#34;] --&gt; D
+                C3[&#34;中国人工智能学会
+                <br/>台湾人工智能协会&#34;] --&gt; D
+
+                D --&gt; E1[&#34;策划组
+                <br/>15人&#34;]
+                D --&gt; E2[&#34;技术组
+                <br/>20人&#34;]
+                D --&gt; E3[&#34;宣传组
+                <br/>12人&#34;]
+                D --&gt; E4[&#34;后勤组
+                <br/>25人&#34;]
+                D --&gt; E5[&#34;外联组
+                <br/>10人&#34;]
+
+                style A fill:#10283c,stroke:#e1bf74,stroke-width:3px,color:#f7ebcc
+                style B fill:#143047,stroke:#c89b4a,stroke-width:3px,color:#f7ebcc
+                style C fill:#17354f,stroke:#e1bf74,stroke-width:3px,color:#f7ebcc
+                style D fill:#1c3f59,stroke:#f3d894,stroke-width:3px,color:#fff4d6
+                style E1 fill:#0d1d2c,stroke:#7d97ac,stroke-width:2px,color:#f7ebcc
+                style E2 fill:#0d1d2c,stroke:#7d97ac,stroke-width:2px,color:#f7ebcc
+                style E3 fill:#0d1d2c,stroke:#7d97ac,stroke-width:2px,color:#f7ebcc
+                style E4 fill:#0d1d2c,stroke:#7d97ac,stroke-width:2px,color:#f7ebcc
+                style E5 fill:#0d1d2c,stroke:#7d97ac,stroke-width:2px,color:#f7ebcc
+                style A1 fill:#0b1825,stroke:#e1bf74,stroke-width:2px,color:#f7ebcc
+                style A2 fill:#0b1825,stroke:#e1bf74,stroke-width:2px,color:#f7ebcc
+                style A3 fill:#0b1825,stroke:#e1bf74,stroke-width:2px,color:#f7ebcc
+                style B1 fill:#0b1825,stroke:#c89b4a,stroke-width:2px,color:#f7ebcc
+                style B2 fill:#0b1825,stroke:#c89b4a,stroke-width:2px,color:#f7ebcc
+                style C1 fill:#0b1825,stroke:#8aa4bb,stroke-width:2px,color:#f7ebcc
+                style C2 fill:#0b1825,stroke:#8aa4bb,stroke-width:2px,color:#f7ebcc
+                style C3 fill:#0b1825,stroke:#8aa4bb,stroke-width:2px,color:#f7ebcc
+              </div>
+            </div>
+          </div>
+
+          <!-- Work Groups -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">核心工作小组职责分工</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full bg-white rounded-lg shadow-sm">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-4 text-left font-semibold text-gray-800">小组</th>
+                    <th class="px-6 py-4 text-left font-semibold text-gray-800">人数</th>
+                    <th class="px-6 py-4 text-left font-semibold text-gray-800">核心职责</th>
+                    <th class="px-6 py-4 text-left font-semibold text-gray-800">关键产出</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-deep-blue">策划组</td>
+                    <td class="px-6 py-4">15人</td>
+                    <td class="px-6 py-4 text-gray-600">赛事规则制定、赛道设计、两岸团队配对机制、嘉宾邀请与议程统筹</td>
+                    <td class="px-6 py-4 text-gray-600">《参赛手册》、配对算法、开幕式流程脚本</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-sage">技术组</td>
+                    <td class="px-6 py-4">20人</td>
+                    <td class="px-6 py-4 text-gray-600">技术平台搭建、开发环境配置、API接口管理、现场网络与设备保障</td>
+                    <td class="px-6 py-4 text-gray-600">报名/评审系统、云资源池、网络冗余方案</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-warm-gray">宣传组</td>
+                    <td class="px-6 py-4">12人</td>
+                    <td class="px-6 py-4 text-gray-600">全周期内容策划、两岸社交媒体矩阵运营、赛事直播与影像记录</td>
+                    <td class="px-6 py-4 text-gray-600">内容日历、KOL合作方案、直播执行手册</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-muted-green">后勤组</td>
+                    <td class="px-6 py-4">25人</td>
+                    <td class="px-6 py-4 text-gray-600">台湾团队出入境与住宿安排、场地布置与餐饮保障、应急医疗与安全保障</td>
+                    <td class="px-6 py-4 text-gray-600">住宿分配方案、餐饮菜单、应急预案</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-gray-600">外联组</td>
+                    <td class="px-6 py-4">10人</td>
+                    <td class="px-6 py-4 text-gray-600">赞助商对接与权益落实、两岸高校联络与团队招募</td>
+                    <td class="px-6 py-4 text-gray-600">赞助合同、高校合作协议、团队招募数据</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Key Responsibilities Detail -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h4 class="text-lg font-semibold text-deep-blue mb-4">两岸团队配对机制</h4>
+              <p class="text-gray-600 mb-4">采用&#34;三阶段配对&#34;模式，在随机性与匹配度之间寻求平衡：</p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li>• <strong>第一阶段：</strong>线上初赛期间，基于技能标签智能推荐</li>
+                <li>• <strong>第二阶段：</strong>入围公布后，组织线上&#34;速配会&#34;双向选择</li>
+                <li>• <strong>第三阶段：</strong>现场报到后，设置&#34;24小时试配期&#34;</li>
+              </ul>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h4 class="text-lg font-semibold text-sage mb-4">技术平台搭建</h4>
+              <p class="text-gray-600 mb-4">构建赛事数字化运营基础设施：</p>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li>• 报名与组队系统（支持两岸手机号/邮箱注册）</li>
+                <li>• 代码托管与提交系统（GitHub/Gitee双平台）</li>
+                <li>• 评审与评分系统（多维度打分、实时统计）</li>
+                <li>• 直播与互动系统（多平台推流、弹幕互动）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Schedule Section -->
+      <section id="schedule" class="bg-soft-beige py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">赛程规划</h2>
+
+          <!-- Overall Timeline -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">整体时间轴</h3>
+            <div class="bg-white rounded-lg p-8 shadow-sm">
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-deep-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="M6 14c1.5-4.5 5-8 11-9-1 6-4.5 9.5-9 11l-3.5.5Z"/>
+                      <path d="M14 5l5 5"/>
+                      <path d="M7 17 5 19"/>
+                      <path d="M8.5 15.5 4 20"/>
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-deep-blue mb-2">线上预热期</h4>
+                  <p class="text-sm text-gray-600 mb-2">5月1日-31日</p>
+                  <p class="text-xs text-gray-500">报名启动、技术工作坊、组队完成</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-sage rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="m8 7-4 5 4 5"/>
+                      <path d="m16 7 4 5-4 5"/>
+                      <path d="m13.5 5-3 14"/>
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-sage mb-2">线上初赛期</h4>
+                  <p class="text-sm text-gray-600 mb-2">6月1日-15日</p>
+                  <p class="text-xs text-gray-500">原型开发、专家评审、入围选拔</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-warm-gray rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="M8 4h8v4a4 4 0 0 1-8 0Z"/>
+                      <path d="M9 18h6"/>
+                      <path d="M10 14h4v4h-4z"/>
+                      <path d="M16 6h2a2 2 0 0 1 0 4h-2"/>
+                      <path d="M8 6H6a2 2 0 0 0 0 4h2"/>
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-warm-gray mb-2">线下决赛期</h4>
+                  <p class="text-sm text-gray-600 mb-2">6月20日-22日</p>
+                  <p class="text-xs text-gray-500">48小时黑客松、评审答辩、颁奖典礼</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-muted-green rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="M12 20v-8"/>
+                      <path d="M12 12c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6Z"/>
+                      <path d="M12 14c0-2.8-2-4.8-4.8-4.8 0 2.8 2 4.8 4.8 4.8Z"/>
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-muted-green mb-2">赛后运营期</h4>
+                  <p class="text-sm text-gray-600 mb-2">6月23日-7月31日</p>
+                  <p class="text-xs text-gray-500">深度报道、成果汇编、社区运营、厦门游玩系列活动</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed Schedule -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">线下三天详细流程</h3>
+
+            <!-- Day 1 -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-deep-blue mb-4">Day 1（6月20日）：启幕与融合</h4>
+              <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">时间</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">环节</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">内容要点</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">场地</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">08:30-09:30</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">签到入场</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">人脸识别核验、物资包领取、两岸青年墙互动</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">主会场门厅</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">09:30-11:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">开幕式</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">主办方致辞、张亚勤院士演讲、协办企业代表演讲</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">主会场</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">11:00-12:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">破冰重组</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">快速约会路演、自由洽谈、系统确认</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">开发区</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">16:30-24:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">开发启动</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">团队入驻工位、环境配置、首轮开发</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">开发区</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-sage mb-4">Day 2（6月21日）：深度开发</h4>
+              <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">时间</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">环节</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">内容要点</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">10:00-12:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">中期汇报</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">每团队5分钟进展展示，导师针对性建议</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">14:00-15:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">技术诊所</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">赞助商专家一对一坐诊，预约制</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">15:00-16:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">文化沙龙</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">两岸青年交流：&#34;我们眼中的AI未来&#34;</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">20:00-21:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">夜间加油站</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">能量补给、团队分享、生日惊喜</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-warm-gray mb-4">Day 3（6月22日）：成果绽放</h4>
+              <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">时间</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">环节</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">内容要点</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">备注</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">12:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">提交截止</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">代码冻结，系统自动锁定</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">延迟提交视为违规</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">15:00-17:30</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">公开演示与评审答辩</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">8分钟演示+5分钟问答，双赛道并行</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">评审团15人</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm text-gray-900">18:30-20:00</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">颁奖典礼暨闭幕晚宴</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">获奖展示、青年感言、2027预告</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">邀请嘉宾出席</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Requirements Section -->
+      <section id="requirements" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">参赛要求</h2>
+
+          <!-- Participants -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">参赛对象</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full bg-white rounded-lg shadow-sm">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-4 text-left font-semibold text-gray-800">类别</th>
+                    <th class="px-6 py-4 text-left font-semibold text-gray-800">具体范围</th>
+                    <th class="px-6 py-4 text-left font-semibold text-gray-800">年龄/身份限制</th>
+                    <th class="px-6 py-4 text-left font-semibold text-gray-800">特殊说明</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-deep-blue">大陆地区</td>
+                    <td class="px-6 py-4 text-gray-600">全日制高校在校生（本科、硕士、博士）、毕业两年内创业团队</td>
+                    <td class="px-6 py-4 text-gray-600">18-35周岁</td>
+                    <td class="px-6 py-4 text-gray-600">需提供学生证或学历证明</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-sage">台湾地区</td>
+                    <td class="px-6 py-4 text-gray-600">台湾高校在校生、青年创业者</td>
+                    <td class="px-6 py-4 text-gray-600">18-35周岁</td>
+                    <td class="px-6 py-4 text-gray-600">需提供在籍证明或创业登记</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium text-warm-gray">特别通道</td>
+                    <td class="px-6 py-4 text-gray-600">两岸联合创业团队、台资企业青年员工</td>
+                    <td class="px-6 py-4 text-gray-600">无额外限制</td>
+                    <td class="px-6 py-4 text-gray-600">需提供合作关系证明</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Team Rules -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">组队规则</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-deep-blue">
+                <h4 class="font-semibold text-deep-blue mb-3">团队规模</h4>
+                <p class="text-2xl font-bold text-gray-800 mb-2">4-6人</p>
+                <p class="text-sm text-gray-600">规模适中，保证协作深度</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-sage">
+                <h4 class="font-semibold text-sage mb-3">两岸混合</h4>
+                <p class="text-2xl font-bold text-gray-800 mb-2">鼓励混编</p>
+                <p class="text-sm text-gray-600">两岸成员比例≥1:1的团队，额外技术资源包（+50%云额度）</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-warm-gray">
+                <h4 class="font-semibold text-warm-gray mb-3">角色配置</h4>
+                <p class="text-sm text-gray-600 mb-2">建议包含：</p>
+                <ul class="text-xs text-gray-600 space-y-1">
+                  <li>• 产品经理</li>
+                  <li>• 算法工程师</li>
+                  <li>• 硬件工程师</li>
+                  <li>• UI设计师</li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-muted-green">
+                <h4 class="font-semibold text-muted-green mb-3">导师制度</h4>
+                <p class="text-sm text-gray-600">每团队可配备1名企业导师，导师参与时长计入&#34;两岸协作深度&#34;评分</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Themes and Topics -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">作品主题范围</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-industry text-deep-blue text-xl mr-3"></i>
+                    <h4 class="text-lg font-semibold text-deep-blue">AI+产业应用</h4>
+                  </div>
+                  <p class="text-gray-600 mb-3">AI赋能产业转型升级，软件赛道与硬件赛道均可参与</p>
+                  <div class="text-sm text-gray-500">
+                    <p><strong>软件方向：</strong>智慧医疗、智慧教育、智能制造、智慧农业等AI解决方案</p>
+                    <p><strong>硬件方向：</strong>智能硬件、边缘计算、IoT设备等AI硬件创新</p>
+                    <p><strong>协办企业：</strong>魔搭社区、字节跳动、阿里、AMD等</p>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-video text-muted-green text-xl mr-3"></i>
+                    <h4 class="text-lg font-semibold text-muted-green">AIGC赛道</h4>
+                  </div>
+                  <p class="text-gray-600 mb-3">AI生成内容创新应用，重点关注短视频生成等方向</p>
+                  <div class="text-sm text-gray-500">
+                    <p><strong>典型场景：</strong>AI短视频生成、数字内容创作、多模态AI创意、虚拟数字人</p>
+                    <p><strong>协办企业：</strong>KIMI、MINIMAX、智谱、Datawhale等</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Requirements -->
+          <div class="bg-gray-50 rounded-lg p-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">技术栈与开发要求</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="text-lg font-semibold text-deep-blue mb-4">推荐平台与支持</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-deep-blue rounded-full flex items-center justify-center">
+                      <i class="fas fa-cloud text-white text-sm"></i>
+                    </div>
+                    <div>
+                      <p class="font-medium">云平台支持</p>
+                      <p class="text-sm text-gray-600">魔搭社区ModelScope、阿里云、字节跳动火山引擎、KIMI、MINIMAX、智谱GLM</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-sage rounded-full flex items-center justify-center">
+                      <i class="fas fa-microchip text-white text-sm"></i>
+                    </div>
+                    <div>
+                      <p class="font-medium">硬件支持</p>
+                      <p class="text-sm text-gray-600">Jetson Nano/Orin、昇腾Atlas 200等边缘计算设备借用</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-sage mb-4">开发与提交要求</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-warm-gray rounded-full flex items-center justify-center">
+                      <i class="fab fa-github text-white text-sm"></i>
+                    </div>
+                    <div>
+                      <p class="font-medium">开源要求</p>
+                      <p class="text-sm text-gray-600">决赛作品代码需开源至GitHub/Gitee，附完整文档</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0 w-8 h-8 bg-muted-green rounded-full flex items-center justify-center">
+                      <i class="fas fa-copyright text-white text-sm"></i>
+                    </div>
+                    <div>
+                      <p class="font-medium">原创性要求</p>
+                      <p class="text-sm text-gray-600">决赛作品需现场全新开发或重大迭代，通过代码审查+现场答辩核实</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Judging Section -->
+      <section id="judging" class="bg-soft-beige py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">评审机制</h2>
+
+          <!-- Judging Committee -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">评审委员会构成（15人）</h3>
+            <div class="bg-white rounded-lg p-8 shadow-sm">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                  <div class="w-20 h-20 bg-deep-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="m3 9 9-4 9 4-9 4-9-4Z"/>
+                      <path d="M7 11v3c0 1.6 2.3 3 5 3s5-1.4 5-3v-3"/>
+                      <path d="M21 10v5"/>
+                    </svg>
+                  </div>
+                  <h4 class="text-lg font-semibold text-deep-blue mb-2">技术专家</h4>
+                  <p class="text-2xl font-bold text-gray-800 mb-2">6人</p>
+                  <div class="text-sm text-gray-600 space-y-1">
+                    <p><strong>大陆：</strong>张亚勤（清华AII）、周志华（南京大学）等3人</p>
+                    <p><strong>台湾：</strong>台湾大学电机系、台科大资讯系资深教授3人</p>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="w-20 h-20 bg-sage rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="M4 20V6l8-2v16"/>
+                      <path d="M12 20V9l8-2v13"/>
+                      <path d="M7 9h2"/>
+                      <path d="M7 12h2"/>
+                      <path d="M15 11h2"/>
+                      <path d="M15 14h2"/>
+                    </svg>
+                  </div>
+                  <h4 class="text-lg font-semibold text-sage mb-2">产业代表</h4>
+                  <p class="text-2xl font-bold text-gray-800 mb-2">6人</p>
+                  <div class="text-sm text-gray-600 space-y-1">
+                    <p><strong>大陆：</strong>字节跳动、阿里巴巴、智谱AI技术VP</p>
+                    <p><strong>台湾：</strong>AMD、研华科技等技术VP</p>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="w-20 h-20 bg-warm-gray rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19v16H7.5A2.5 2.5 0 0 0 5 21Z"/>
+                      <path d="M5 5.5V21"/>
+                      <path d="M9 7h6"/>
+                      <path d="M9 11h6"/>
+                    </svg>
+                  </div>
+                  <h4 class="text-lg font-semibold text-warm-gray mb-2">文化交流学者</h4>
+                  <p class="text-2xl font-bold text-gray-800 mb-2">3人</p>
+                  <div class="text-sm text-gray-600 space-y-1">
+                    <p><strong>大陆：</strong>中国社会科学院台湾研究所、厦门大学台湾研究院</p>
+                    <p><strong>台湾：</strong>台湾政治大学东亚研究所</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scoring Criteria -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">评分标准（百分制）</h3>
+            <div class="bg-white rounded-lg p-8 shadow-sm">
+              <div class="space-y-6">
+                <div class="flex items-center space-x-4 p-4 bg-deep-blue/10 rounded-lg">
+                  <div class="text-2xl font-bold text-deep-blue w-16 text-center">25分</div>
+                  <div class="flex-1">
+                    <h4 class="font-semibold text-deep-blue mb-1">创新性</h4>
+                    <p class="text-sm text-gray-600">技术方案原创性、问题定义独特性、与现有解决方案的差异化</p>
+                  </div>
+                  <div class="text-sm text-gray-500">专家主观评分+查重系统辅助</div>
+                </div>
+                <div class="flex items-center space-x-4 p-4 bg-sage/10 rounded-lg">
+                  <div class="text-2xl font-bold text-sage w-16 text-center">25分</div>
+                  <div class="flex-1">
+                    <h4 class="font-semibold text-sage mb-1">技术实现</h4>
+                    <p class="text-sm text-gray-600">代码质量、架构合理性、技术难度、性能指标达成度</p>
+                  </div>
+                  <div class="text-sm text-gray-500">代码审查+现场Demo验证</div>
+                </div>
+                <div class="flex items-center space-x-4 p-4 bg-warm-gray/10 rounded-lg">
+                  <div class="text-2xl font-bold text-warm-gray w-16 text-center">20分</div>
+                  <div class="flex-1">
+                    <h4 class="font-semibold text-warm-gray mb-1">实用性</h4>
+                    <p class="text-sm text-gray-600">应用场景明确性、商业化潜力、社会价值、可扩展性</p>
+                  </div>
+                  <div class="text-sm text-gray-500">产业代表主导评分</div>
+                </div>
+                <div class="flex items-center space-x-4 p-4 bg-muted-green/10 rounded-lg">
+                  <div class="text-2xl font-bold text-muted-green w-16 text-center">20分</div>
+                  <div class="flex-1">
+                    <h4 class="font-semibold text-muted-green mb-1">两岸元素融合度</h4>
+                    <p class="text-sm text-gray-600">团队协作深度、文化元素融入、两岸资源整合</p>
+                  </div>
+                  <div class="text-sm text-gray-500">文化交流学者主导评分</div>
+                </div>
+                <div class="flex items-center space-x-4 p-4 bg-gray-100 rounded-lg">
+                  <div class="text-2xl font-bold text-gray-600 w-16 text-center">10分</div>
+                  <div class="flex-1">
+                    <h4 class="font-semibold text-gray-600 mb-1">展示效果</h4>
+                    <p class="text-sm text-gray-600">Demo完成度、答辩清晰度、视觉呈现、时间控制</p>
+                  </div>
+                  <div class="text-sm text-gray-500">全体评审综合评分</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Awards -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">奖项设置</h3>
+
+            <!-- Main Awards -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-deep-blue mb-4">主奖项</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-yellow-400 to-yellow-600 text-white rounded-lg p-6 shadow-lg">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-trophy text-2xl mr-3"></i>
+                    <h5 class="text-lg font-bold">海峡智创金奖</h5>
+                  </div>
+                  <p class="text-3xl font-bold mb-2">8万元</p>
+                  <p class="text-sm opacity-90 mb-3">1队</p>
+                  <ul class="text-xs space-y-1 opacity-90">
+                    <li>• 厦门火炬高新区3个月免费办公工位</li>
+                    <li>• 30万元云资源额度</li>
+                    <li>• 优先对接红杉中国/高瓴资本</li>
+                  </ul>
+                </div>
+                <div class="bg-gradient-to-br from-gray-400 to-gray-600 text-white rounded-lg p-6 shadow-lg">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-medal text-2xl mr-3"></i>
+                    <h5 class="text-lg font-bold">海峡智创银奖</h5>
+                  </div>
+                  <p class="text-3xl font-bold mb-2">4万元</p>
+                  <p class="text-sm opacity-90 mb-3">2队</p>
+                  <ul class="text-xs space-y-1 opacity-90">
+                    <li>• 企业实习直通（字节跳动/阿里/AMD等）</li>
+                    <li>• 15万元云资源额度</li>
+                  </ul>
+                </div>
+                <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 text-white rounded-lg p-6 shadow-lg">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-award text-2xl mr-3"></i>
+                    <h5 class="text-lg font-bold">海峡智创铜奖</h5>
+                  </div>
+                  <p class="text-3xl font-bold mb-2">2万元</p>
+                  <p class="text-sm opacity-90 mb-3">3队</p>
+                  <ul class="text-xs space-y-1 opacity-90">
+                    <li>• 技术认证课程（Datawhale/阿里云AI工程师等）</li>
+                    <li>• 8万元云资源额度</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Special Awards -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-sage mb-4">专项奖</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-deep-blue">
+                  <h5 class="font-semibold text-deep-blue mb-2">最佳两岸协作奖</h5>
+                  <p class="text-xl font-bold text-gray-800 mb-2">2万元</p>
+                  <p class="text-sm text-gray-600">团队协作深度、跨海峡沟通效率、文化融合创新</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-sage">
+                  <h5 class="font-semibold text-sage mb-2">最佳技术创新奖</h5>
+                  <p class="text-xl font-bold text-gray-800 mb-2">2万元</p>
+                  <p class="text-sm text-gray-600">技术难度、架构优雅性、性能突破</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-warm-gray">
+                  <h5 class="font-semibold text-warm-gray mb-2">最佳产业应用奖</h5>
+                  <p class="text-xl font-bold text-gray-800 mb-2">2万元</p>
+                  <p class="text-sm text-gray-600">商业化潜力、场景匹配度、可落地性</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border-l-4 border-muted-green">
+                  <h5 class="font-semibold text-muted-green mb-2">最佳文化创新奖</h5>
+                  <p class="text-xl font-bold text-gray-800 mb-2">2万元</p>
+                  <p class="text-sm text-gray-600">文化表达准确性、创新转化、传播价值</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Participation Awards -->
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h4 class="text-lg font-semibold text-gray-800 mb-4">入围奖</h4>
+              <p class="text-gray-600 mb-4">所有线下参赛团队获得证书与纪念品（赛事周边套装+纪念册）。未获奖但表现优秀的团队，纳入&#34;海峡开发者社区&#34;重点培养，优先获得后续活动邀请和资源对接。</p>
+              <div class="flex items-center space-x-4 text-sm text-gray-500">
+                <span><i class="fas fa-certificate mr-1"></i>参赛证书</span>
+                <span><i class="fas fa-gift mr-1"></i>赛事周边套装</span>
+                <span><i class="fas fa-book mr-1"></i>赛事纪念册</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Prize Pool -->
+          <div class="bg-white rounded-lg p-8 shadow-sm border-2 border-yellow-400">
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-gray-800 mb-4">总奖金池</h3>
+              <p class="text-5xl font-bold text-yellow-600 mb-2">38万元</p>
+              <p class="text-gray-600">主奖项22万 + 专项奖8万 + 入围奖纪念品及证书约8万</p>
+              <p class="text-sm text-gray-500 mt-4">压缩现金支出后，仍保留“奖金+资源+机会”的激励结构，适配200万元执行盘子</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Promotion Section -->
+      <section id="promotion" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">宣传推广策略</h2>
+
+          <!-- Pre-event Promotion -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">赛前预热（5月1日-6月19日）</h3>
+
+            <!-- Social Media Matrix -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-deep-blue mb-4">社交媒体矩阵</h4>
+              <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">平台</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">运营重点</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">内容形式</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">目标KPI</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                      <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">微信公众号</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">深度内容、官方通知</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">长图文、H5互动</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">粉丝5万+，单篇阅读1万+</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">微博</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">话题运营、实时互动</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">短视频、话题挑战</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">#海峡智创Hackathon# 阅读5000万+</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">B站</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">技术教程、赛事纪录片</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">中长视频、直播</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">粉丝3万+，视频总播放100万+</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">Facebook</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">台湾用户触达、活动页面</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">图文、视频、活动</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">粉丝2万+，活动参与5000+</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- University Promotion -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-sage mb-4">高校宣讲</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <h5 class="font-semibold text-deep-blue mb-3">大陆线（15场）</h5>
+                  <p class="text-sm text-gray-600 mb-3">清华、北大、浙大、上海交大、哈工大等15所双一流高校</p>
+                  <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <span>技术工作坊+赛事说明会+现场组队</span>
+                  </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <h5 class="font-semibold text-sage mb-3">台湾线（10场）</h5>
+                  <p class="text-sm text-gray-600 mb-3">台大、清大、交大、台科大、北科大等10所重点高校</p>
+                  <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-video mr-2"></i>
+                    <span>线上联动+本地校友会协助</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Media Partners -->
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h4 class="text-lg font-semibold text-warm-gray mb-4">合作媒体</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <h5 class="font-medium text-deep-blue mb-2">科技媒体</h5>
+                  <p class="text-sm text-gray-600">36氪、极客公园、TechOrange（台湾）</p>
+                  <p class="text-xs text-gray-500 mt-1">深度报道、专题策划、KOL撰稿</p>
+                </div>
+                <div>
+                  <h5 class="font-medium text-sage mb-2">两岸媒体</h5>
+                  <p class="text-sm text-gray-600">中新社台湾分社、旺报、联合报</p>
+                  <p class="text-xs text-gray-500 mt-1">新闻通稿、高层专访、现场报道</p>
+                </div>
+                <div>
+                  <h5 class="font-medium text-warm-gray mb-2">国际媒体</h5>
+                  <p class="text-sm text-gray-600">TechCrunch、IEEE Spectrum</p>
+                  <p class="text-xs text-gray-500 mt-1">英文报道、国际社区传播</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Broadcast -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">赛中直播（6月20日-22日）</h3>
+            <div class="bg-white rounded-lg p-8 shadow-sm">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-deep-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <circle cx="12" cy="12" r="0" fill="none"/>
+                      <polygon points="10,8 17,12 10,16" class="feature-icon-fill"/>
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-deep-blue mb-2">开幕式</h4>
+                  <p class="text-sm text-gray-600 mb-2">6月20日 09:30-11:00</p>
+                  <p class="text-xs text-gray-500">多机位+同声传译+实时字幕</p>
+                  <p class="text-lg font-bold text-gray-800 mt-2">50万人次</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-sage rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <rect x="5" y="6" width="14" height="12" rx="1.5"/>
+                      <path d="M9 6v12"/>
+                      <path d="M15 6v12"/>
+                      <path d="M5 10h14"/>
+                      <path d="M5 14h14"/>
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-sage mb-2">开发过程纪实</h4>
+                  <p class="text-sm text-gray-600 mb-2">6月20-21日 全程</p>
+                  <p class="text-xs text-gray-500">24小时慢直播+AI精彩瞬间识别</p>
+                  <p class="text-lg font-bold text-gray-800 mt-2">100万人次</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-warm-gray rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="m14 6 4 4"/>
+                      <path d="m8 12 6-6 4 4-6 6"/>
+                      <path d="m7 13 4 4"/>
+                      <path d="M4 20l7-7"/>
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-warm-gray mb-2">评审答辩</h4>
+                  <p class="text-sm text-gray-600 mb-2">6月22日 15:00-17:30</p>
+                  <p class="text-xs text-gray-500">双赛道并行直播+技术评论员解说</p>
+                  <p class="text-lg font-bold text-gray-800 mt-2">30万人次</p>
+                </div>
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-muted-green rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" class="feature-icon" aria-hidden="true">
+                      <path d="M8 4h8v4a4 4 0 0 1-8 0Z"/>
+                      <path d="M9 18h6"/>
+                      <path d="M10 14h4v4h-4z"/>
+                      <path d="M16 6h2a2 2 0 0 1 0 4h-2"/>
+                      <path d="M8 6H6a2 2 0 0 0 0 4h2"/>
+                    </svg>
+                  </div>
+                  <h4 class="font-semibold text-muted-green mb-2">颁奖典礼</h4>
+                  <p class="text-sm text-gray-600 mb-2">6月22日 18:30-20:00</p>
+                  <p class="text-xs text-gray-500">主会场+嘉宾访谈+获奖团队专访</p>
+                  <p class="text-lg font-bold text-gray-800 mt-2">50万人次</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Post-event Coverage -->
+          <div class="bg-gray-50 rounded-lg p-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">赛后报道（6月23日-7月31日）</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-6">
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 w-8 h-8 bg-deep-blue rounded-full flex items-center justify-center">
+                    <i class="fas fa-newspaper text-white text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-deep-blue mb-1">深度报道</h4>
+                    <p class="text-sm text-gray-600">获奖团队技术解析与创业故事，发布于36氪、极客公园、TechOrange</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 w-8 h-8 bg-sage rounded-full flex items-center justify-center">
+                    <i class="fas fa-book-open text-white text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-sage mb-1">成果汇编</h4>
+                    <p class="text-sm text-gray-600">《2026海峡智创Hackathon优秀项目集》电子版全网发布，纸质版赠送嘉宾</p>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-6">
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 w-8 h-8 bg-warm-gray rounded-full flex items-center justify-center">
+                    <i class="fas fa-video text-white text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-warm-gray mb-1">影像纪录</h4>
+                    <p class="text-sm text-gray-600">15分钟赛事纪录片，发布于B站、YouTube、两岸电视台</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0 w-8 h-8 bg-muted-green rounded-full flex items-center justify-center">
+                    <i class="fas fa-seedling text-white text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-muted-green mb-1">持续运营</h4>
+                    <p class="text-sm text-gray-600">优秀项目入驻两岸青年创新创业基地，持续孵化对接，结合两岸青年创业基金与厦门"AI产业+"政策落地</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Venue Section -->
+      <section id="venue" class="bg-soft-beige py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">场地与设备安排</h2>
+
+          <!-- Venue Layout -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">场地规格（厦门国际会议中心）</h3>
+            <div class="bg-white rounded-lg p-8 shadow-sm">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-microphone text-deep-blue text-xl mr-3"></i>
+                    <h4 class="font-semibold text-deep-blue">主会场</h4>
+                  </div>
+                  <div class="space-y-2 text-sm text-gray-600">
+                    <p><strong>面积：</strong>800㎡</p>
+                    <p><strong>容量：</strong>500人</p>
+                    <p><strong>配置：</strong>P2.5 LED屏10m×4m、专业灯光音响、同声传译 booth</p>
+                    <p><strong>特色：</strong>海峡轮廓舞台背景，两岸地标元素</p>
+                  </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-code text-sage text-xl mr-3"></i>
+                    <h4 class="font-semibold text-sage">开发区</h4>
+                  </div>
+                  <div class="space-y-2 text-sm text-gray-600">
+                    <p><strong>面积：</strong>1200㎡</p>
+                    <p><strong>容量：</strong>40支团队</p>
+                    <p><strong>配置：</strong>每团队3m×3m工位，升降桌、27寸4K显示器、高速Wi-Fi</p>
+                    <p><strong>特色：</strong>颜色分区：橙色创作区、黄色公社区</p>
+                  </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <i class="fas fa-eye text-warm-gray text-xl mr-3"></i>
+                    <h4 class="font-semibold text-warm-gray">展示区</h4>
+                  </div>
+                  <div class="space-y-2 text-sm text-gray-600">
+                    <p><strong>面积：</strong>400㎡</p>
+                    <p><strong>容量：</strong>20个展位</p>
+                    <p><strong>配置：</strong>标准展架、电源、网络</p>
+                    <p><strong>特色：</strong>企业生态+文化体验+往届成果</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Equipment -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">技术设备</h3>
+
+            <!-- Network Environment -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-deep-blue mb-4">网络环境</h4>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div class="text-center">
+                    <div class="w-16 h-16 bg-deep-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                      <i class="fas fa-network-wired text-white text-xl"></i>
+                    </div>
+                    <h5 class="font-semibold text-deep-blue mb-2">主干接入</h5>
+                    <p class="text-sm text-gray-600">10Gbps光纤</p>
+                    <p class="text-xs text-gray-500">双运营商接入（电信+联通）</p>
+                  </div>
+                  <div class="text-center">
+                    <div class="w-16 h-16 bg-sage rounded-full flex items-center justify-center mx-auto mb-4">
+                      <i class="fas fa-wifi text-white text-xl"></i>
+                    </div>
+                    <h5 class="font-semibold text-sage mb-2">无线网络</h5>
+                    <p class="text-sm text-gray-600">Wi-Fi 6全覆盖</p>
+                    <p class="text-xs text-gray-500">2000+AP，分SSID管理</p>
+                  </div>
+                  <div class="text-center">
+                    <div class="w-16 h-16 bg-warm-gray rounded-full flex items-center justify-center mx-auto mb-4">
+                      <i class="fas fa-signal text-white text-xl"></i>
+                    </div>
+                    <h5 class="font-semibold text-warm-gray mb-2">备用网络</h5>
+                    <p class="text-sm text-gray-600">5G CPE×20台</p>
+                    <p class="text-xs text-gray-500">4G/5G双模，自动负载均衡</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Computing Resources -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-sage mb-4">计算资源</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <h5 class="font-semibold text-deep-blue mb-3">云服务器GPU实例</h5>
+                  <p class="text-2xl font-bold text-gray-800 mb-2">100台</p>
+                  <p class="text-sm text-gray-600">V100/A100，按需分配</p>
+                  <p class="text-xs text-gray-500 mt-2">阿里云赞助</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <h5 class="font-semibold text-sage mb-3">边缘计算设备借用</h5>
+                  <div class="space-y-2 text-sm text-gray-600">
+                    <p>• Jetson Nano/Orin ×30台</p>
+                    <p>• 昇腾Atlas 200 DK ×30台</p>
+                    <p>• 其他（RK3588等）×20台</p>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2">押金制借用，赛后归还</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                  <h5 class="font-semibold text-warm-gray mb-3">展示设备</h5>
+                  <div class="space-y-2 text-sm text-gray-600">
+                    <p>• P2.5 LED主屏 10m×4m</p>
+                    <p>• 4K激光投影仪 ×10套</p>
+                    <p>• 导播台+6机位直播系统</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Logistics Support -->
+          <div class="bg-white rounded-lg p-8 shadow-sm">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">后勤保障</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div>
+                <h4 class="text-lg font-semibold text-deep-blue mb-4">餐饮服务</h4>
+                <div class="space-y-3">
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-medium text-gray-800 mb-2">正餐（5餐）</h5>
+                    <p class="text-sm text-gray-600">自助餐，60元/人标准</p>
+                    <p class="text-xs text-gray-500 mt-1">闽南菜、台湾小吃、川菜、粤菜四档</p>
+                  </div>
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-medium text-gray-800 mb-2">茶歇/夜宵</h5>
+                    <p class="text-sm text-gray-600">24小时供应，30元/人/天</p>
+                    <p class="text-xs text-gray-500 mt-1">台湾凤梨酥、金门高粱酒巧克力、能量棒、咖啡</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-sage mb-4">住宿安排</h4>
+                <div class="space-y-3">
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-medium text-gray-800 mb-2">台湾团队</h5>
+                    <p class="text-sm text-gray-600">四星级酒店标准间（2人/间）</p>
+                    <p class="text-xs text-gray-500 mt-1">3晚，400元/间/晚，含早</p>
+                  </div>
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-medium text-gray-800 mb-2">大陆外地团队</h5>
+                    <p class="text-sm text-gray-600">经济型酒店或青年旅舍补贴</p>
+                    <p class="text-xs text-gray-500 mt-1">3晚，200元/人补贴</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-warm-gray mb-4">交通接驳</h4>
+                <div class="space-y-3">
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-medium text-gray-800 mb-2">机场→酒店</h5>
+                    <p class="text-sm text-gray-600">每2小时1班，45座大巴</p>
+                    <p class="text-xs text-gray-500 mt-1">根据航班动态调整</p>
+                  </div>
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-medium text-gray-800 mb-2">酒店→会场</h5>
+                    <p class="text-sm text-gray-600">每日3班，25座中巴</p>
+                    <p class="text-xs text-gray-500 mt-1">07:30、08:30、09:00，15分钟车程</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Budget Section -->
+      <section id="budget" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">详细预算方案</h2>
+
+          <!-- Budget Overview -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">预算总览</h3>
+            <div class="bg-white rounded-lg p-8 shadow-sm">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <div class="text-center mb-6">
+                    <p class="text-6xl font-bold text-deep-blue">200万元</p>
+                    <p class="text-lg text-gray-600 mt-2">精简版执行总预算</p>
+                  </div>
+                  <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600">场地与基础搭建</span>
+                      <span class="font-semibold">42万元 (21%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600">技术设备与网络</span>
+                      <span class="font-semibold">26万元 (13%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600">宣传推广与内容</span>
+                      <span class="font-semibold">18万元 (9%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600">嘉宾评审及差旅</span>
+                      <span class="font-semibold">24万元 (12%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600">团队补贴与接待</span>
+                      <span class="font-semibold">32万元 (16%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600">奖金及激励</span>
+                      <span class="font-semibold">38万元 (19%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600">餐饮与现场运营</span>
+                      <span class="font-semibold">12万元 (6%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-600">应急预备金</span>
+                      <span class="font-semibold">8万元 (4%)</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <img src="https://kimi-web-img.moonshot.cn/img/p19-official-plugin-sign-sg.ibyteimg.com/3e6d92f7c2fab78be43af022c1b13013fd3e0ed9.png" alt="商务团队讨论预算分配" class="w-full h-80 object-cover rounded-lg" size="medium" aspect="wide" style="photo" query="商务会议预算讨论" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed Budget -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">详细预算明细</h3>
+
+            <div class="space-y-8">
+              <!-- Venue Rental -->
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-deep-blue mb-4">
+                  <i class="fas fa-building mr-2"></i>场地与基础搭建
+                </h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">主会场、开发区与展示区租赁</span>
+                    <span class="font-medium">26万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">基础舞美、导视与签到搭建</span>
+                    <span class="font-medium">10万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">电力、空调、保洁与基础服务</span>
+                    <span class="font-medium">6万元</span>
+                  </div>
+                </div>
+                <div class="border-t mt-3 pt-3 flex justify-between">
+                  <span class="font-semibold">小计</span>
+                  <span class="font-bold text-xl">42万元</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">以可复用物料和紧凑场地编排替代大规模会展级搭建。</p>
+              </div>
+
+              <!-- Technical Equipment -->
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-sage mb-4">
+                  <i class="fas fa-server mr-2"></i>技术设备与网络
+                </h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">网络设备与现场搭建</span>
+                    <span class="font-medium">8万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">云服务器与模型算力</span>
+                    <span class="font-medium">6万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">直播与视听设备</span>
+                    <span class="font-medium">7万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">开发工位与备用机</span>
+                    <span class="font-medium">5万元</span>
+                  </div>
+                </div>
+                <div class="border-t mt-3 pt-3 flex justify-between">
+                  <span class="font-semibold">小计</span>
+                  <span class="font-bold text-xl">26万元</span>
+                </div>
+              </div>
+
+              <!-- Promotion -->
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-warm-gray mb-4">
+                  <i class="fas fa-bullhorn mr-2"></i>宣传推广费用
+                </h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">视觉物料与官网页面</span>
+                    <span class="font-medium">5万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">媒体合作与内容分发</span>
+                    <span class="font-medium">7万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">高校路演与社群运营</span>
+                    <span class="font-medium">6万元</span>
+                  </div>
+                </div>
+                <div class="border-t mt-3 pt-3 flex justify-between">
+                  <span class="font-semibold">小计</span>
+                  <span class="font-bold text-xl">18万元</span>
+                </div>
+              </div>
+
+              <!-- Guest Expenses -->
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-muted-green mb-4">
+                  <i class="fas fa-plane mr-2"></i>嘉宾差旅及劳务费
+                </h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">重点嘉宾差旅与住宿</span>
+                    <span class="font-medium">8万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">企业导师与评审劳务</span>
+                    <span class="font-medium">9万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">台湾代表接待与往返交通</span>
+                    <span class="font-medium">7万元</span>
+                  </div>
+                </div>
+                <div class="border-t mt-3 pt-3 flex justify-between">
+                  <span class="font-semibold">小计</span>
+                  <span class="font-bold text-xl">24万元</span>
+                </div>
+              </div>
+
+              <!-- Team Subsidies -->
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-deep-blue mb-4">
+                  <i class="fas fa-users mr-2"></i>参赛团队补贴
+                </h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">台湾团队交通住宿补贴</span>
+                    <span class="font-medium">18万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">大陆外地团队交通补贴</span>
+                    <span class="font-medium">4万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">酒店协调与往返接驳</span>
+                    <span class="font-medium">5万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">志愿者与签到物资</span>
+                    <span class="font-medium">5万元</span>
+                  </div>
+                </div>
+                <div class="border-t mt-3 pt-3 flex justify-between">
+                  <span class="font-semibold">小计</span>
+                  <span class="font-bold text-xl">32万元</span>
+                </div>
+              </div>
+
+              <!-- Prizes -->
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-sage mb-4">
+                  <i class="fas fa-gift mr-2"></i>奖品及证书费用
+                </h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">主奖项与专项奖现金</span>
+                    <span class="font-medium">30万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">奖杯、证书、纪念品与资源包</span>
+                    <span class="font-medium">8万元</span>
+                  </div>
+                </div>
+                <div class="border-t mt-3 pt-3 flex justify-between">
+                  <span class="font-semibold">小计</span>
+                  <span class="font-bold text-xl">38万元</span>
+                </div>
+              </div>
+
+              <!-- Catering -->
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <h4 class="text-lg font-semibold text-warm-gray mb-4">
+                  <i class="fas fa-utensils mr-2"></i>餐饮及茶歇费用
+                </h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">正餐与茶歇</span>
+                    <span class="font-medium">8万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">夜间补给与闭幕交流</span>
+                    <span class="font-medium">2万元</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">医疗保险与安保</span>
+                    <span class="font-medium">2万元</span>
+                  </div>
+                </div>
+                <div class="border-t mt-3 pt-3 flex justify-between">
+                  <span class="font-semibold">小计</span>
+                  <span class="font-bold text-xl">12万元</span>
+                </div>
+              </div>
+
+              <!-- Emergency Fund -->
+              <div class="bg-yellow-50 rounded-lg p-6 border-2 border-yellow-400">
+                <h4 class="text-lg font-semibold text-yellow-700 mb-4">
+                  <i class="fas fa-shield-alt mr-2"></i>应急预备金
+                </h4>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-600">用于网络扩容、临时嘉宾接待、交通波动及现场突发情况</span>
+                  <span class="font-bold text-2xl text-yellow-700">8万元</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Funding Plan -->
+          <div class="bg-gradient-to-r from-deep-blue to-sage text-white rounded-lg p-8">
+            <h3 class="text-2xl font-bold mb-6">赞助目标</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="text-center">
+                <div class="text-4xl font-bold mb-2">120万元</div>
+                <p class="text-lg">企业赞助</p>
+              </div>
+              <div class="text-center">
+                <div class="text-4xl font-bold mb-2">80万元</div>
+                <p class="text-lg">政府支持</p>
+              </div>
+            </div>
+            <div class="text-center mt-6">
+              <p class="text-xl">总筹资目标：200万元</p>
+              <p class="text-sm opacity-90 mt-2">按精简版预算执行，优先保障赛事体验、两岸团队补贴与技术资源，超额部分用于扩大邀请规模和提升资源包。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Risks Section -->
+      <section id="risks" class="bg-soft-beige py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">风险预案</h2>
+
+          <!-- Risk Management Framework -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">风险管理框架</h3>
+            <div class="bg-white rounded-lg p-8 shadow-sm">
+              <div class="mermaid-container">
+                <div class="mermaid-controls">
+                  <button class="mermaid-control-btn zoom-in" title="放大">
+                    <i class="fas fa-search-plus"></i>
+                  </button>
+                  <button class="mermaid-control-btn zoom-out" title="缩小">
+                    <i class="fas fa-search-minus"></i>
+                  </button>
+                  <button class="mermaid-control-btn reset-zoom" title="重置">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                  </button>
+                  <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                </div>
+                <div class="mermaid">
+                  graph TD
+                  A[&#34;风险识别&#34;] --&gt; B[&#34;风险评估&#34;]
+                  B --&gt; C[&#34;风险应对&#34;]
+                  C --&gt; D[&#34;风险监控&#34;]
+                  D --&gt; A
+
+                  A1[&#34;技术故障&#34;] --&gt; B
+                  A2[&#34;天气变化&#34;] --&gt; B
+                  A3[&#34;人数不足&#34;] --&gt; B
+                  A4[&#34;政治敏感&#34;] --&gt; B
+                  A5[&#34;公共卫生&#34;] --&gt; B
+
+                  B --&gt; C1[&#34;预防措施&#34;]
+                  B --&gt; C2[&#34;应急预案&#34;]
+                  B --&gt; C3[&#34;替代方案&#34;]
+
+                  C1 --&gt; D
+                  C2 --&gt; D
+                  C3 --&gt; D
+
+                  style A fill:#10283c,stroke:#e1bf74,stroke-width:3px,color:#f7ebcc
+                  style B fill:#143047,stroke:#c89b4a,stroke-width:3px,color:#f7ebcc
+                  style C fill:#17354f,stroke:#e1bf74,stroke-width:3px,color:#f7ebcc
+                  style D fill:#1c3f59,stroke:#f3d894,stroke-width:3px,color:#fff4d6
+                  style A1 fill:#0b1825,stroke:#e1bf74,stroke-width:2px,color:#f7ebcc
+                  style A2 fill:#0b1825,stroke:#e1bf74,stroke-width:2px,color:#f7ebcc
+                  style A3 fill:#0b1825,stroke:#e1bf74,stroke-width:2px,color:#f7ebcc
+                  style A4 fill:#0b1825,stroke:#e1bf74,stroke-width:2px,color:#f7ebcc
+                  style A5 fill:#0b1825,stroke:#e1bf74,stroke-width:2px,color:#f7ebcc
+                  style C1 fill:#0b1825,stroke:#8aa4bb,stroke-width:2px,color:#f7ebcc
+                  style C2 fill:#0b1825,stroke:#8aa4bb,stroke-width:2px,color:#f7ebcc
+                  style C3 fill:#0b1825,stroke:#8aa4bb,stroke-width:2px,color:#f7ebcc
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Specific Risk Scenarios -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">具体风险场景与应对措施</h3>
+
+            <!-- Technical Risks -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-deep-blue mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>技术故障风险
+              </h4>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">风险场景</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 网络中断</li>
+                      <li>• 云服务故障</li>
+                      <li>• 设备损坏</li>
+                      <li>• 系统崩溃</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">应对措施</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 备用5G CPE自动切换，本地离线开发环境</li>
+                      <li>• 多云备份（阿里云双活），关键数据实时同步</li>
+                      <li>• 现场备用设备库（关键设备2倍冗余），2小时快速更换</li>
+                      <li>• 降级方案：纸质评分+事后补录，确保评审继续</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                  <p class="text-sm text-blue-700"><strong>责任人：</strong>技术组 | <strong>响应时间：</strong>5分钟-2小时</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weather Risks -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-sage mb-4">
+                <i class="fas fa-cloud-rain mr-2"></i>天气变化风险
+              </h4>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">风险场景</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 台风/暴雨</li>
+                      <li>• 极端高温（&gt;35℃）</li>
+                      <li>• 大雾（影响航班）</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">应对措施</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 室内场馆备选方案（厦门佰翔会展中心），航班改签协调</li>
+                      <li>• 加强空调保障（备用移动空调），设置清凉休息区</li>
+                      <li>• 启动高铁备选方案（深圳/福州中转），调整开幕式时间</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                  <p class="text-sm text-green-700"><strong>预警机制：</strong>提前72小时-12小时气象预警</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Participation Risks -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-warm-gray mb-4">
+                <i class="fas fa-users mr-2"></i>参赛人数不足风险
+              </h4>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">风险场景</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 台湾团队招募不足（&lt;30支）</li>
+                      <li>• 整体规模不足（&lt;60支）</li>
+                      <li>• 现场缺席率高（&gt;20%）</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">应对措施</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 启动备用邀请名单，放宽企业团队限制（毕业年限延长至5年）</li>
+                      <li>• 调整赛制为&#34;精英邀请赛&#34;，提升单队资源投入</li>
+                      <li>• 启动候补名单，现场开放观摩名额填充气氛</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="mt-4 p-3 bg-yellow-50 rounded-lg">
+                  <p class="text-sm text-yellow-700"><strong>预警指标：</strong>5月15日报名数据&lt;20支，6月1日入围确认&lt;50支</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Political Risks -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-muted-green mb-4">
+                <i class="fas fa-flag mr-2"></i>两岸政治敏感风险
+              </h4>
+              <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">预防层</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 所有材料经两岸双方审核</li>
+                      <li>• 敏感表述统一口径</li>
+                      <li>• &#34;九二共识&#34;&#34;两岸同属一中&#34;等表述规范</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">响应层</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 设立新闻发言人，统一对外口径</li>
+                      <li>• 暂停直播，封闭现场，等待指示</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-gray-800 mb-3">替代层</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                      <li>• 预留线上完全替代方案</li>
+                      <li>• 48小时线上黑客松+云端评审+视频颁奖</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Health Risks -->
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+              <h4 class="text-lg font-semibold text-red-600 mb-4">
+                <i class="fas fa-heartbeat mr-2"></i>公共卫生风险
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h5 class="font-semibold text-gray-800 mb-3">风险场景</h5>
+                  <ul class="space-y-2 text-sm text-gray-600">
+                    <li>• 传染病疫情</li>
+                    <li>• 食品安全事件</li>
+                    <li>• 突发疾病</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 class="font-semibold text-gray-800 mb-3">应对措施</h5>
+                  <ul class="space-y-2 text-sm text-gray-600">
+                    <li>• 备用口罩、消毒用品，临时隔离区，与疾控中心建立联动</li>
+                    <li>• 供应商资质审核，留样检测，应急预案（定点医院绿色通道）</li>
+                    <li>• 现场医疗站（AED、常用药品、急救设备），定点医院15分钟车程</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Emergency Response Team -->
+          <div class="bg-white rounded-lg p-8 shadow-sm">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">应急响应团队</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-deep-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-headset text-white text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-deep-blue mb-2">技术应急组</h4>
+                <p class="text-sm text-gray-600">24小时技术支持，5分钟响应</p>
+              </div>
+              <div class="text-center">
+                <div class="w-16 h-16 bg-sage rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-ambulance text-white text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-sage mb-2">医疗保障组</h4>
+                <p class="text-sm text-gray-600">现场医疗站，定点医院绿色通道</p>
+              </div>
+              <div class="text-center">
+                <div class="w-16 h-16 bg-warm-gray rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-shield-alt text-white text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-warm-gray mb-2">安全保障组</h4>
+                <p class="text-sm text-gray-600">安保人员24小时巡逻</p>
+              </div>
+              <div class="text-center">
+                <div class="w-16 h-16 bg-muted-green rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-bullhorn text-white text-xl"></i>
+                </div>
+                <h4 class="font-semibold text-muted-green mb-2">媒体应对组</h4>
+                <p class="text-sm text-gray-600">统一对外口径，危机公关</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partnerships Section -->
+      <section id="partnerships" class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">合作资源与赞助回报</h2>
+
+          <!-- Partner Types -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">潜在赞助单位类型</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-6">
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="text-lg font-semibold text-deep-blue mb-3">
+                    <i class="fas fa-cloud mr-2"></i>科技龙头企业-云计算/AI平台
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-3"><strong>目标企业：</strong>阿里、字节跳动、KIMI、MINIMAX、智谱</p>
+                  <p class="text-sm text-gray-600 mb-3"><strong>核心诉求：</strong>开发者生态建设、品牌技术领导力、人才获取</p>
+                  <p class="text-sm text-gray-600"><strong>匹配价值：</strong>赛事技术底座、导师资源、实习就业通道</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="text-lg font-semibold text-sage mb-3">
+                    <i class="fas fa-microchip mr-2"></i>科技龙头企业-芯片/硬件
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-3"><strong>目标企业：</strong>AMD、研华、魔搭社区、Datawhale</p>
+                  <p class="text-sm text-gray-600 mb-3"><strong>核心诉求：</strong>边缘AI场景落地、开发者社区、两岸市场拓展</p>
+                  <p class="text-sm text-gray-600"><strong>匹配价值：</strong>硬件借用、产业赛道、台湾市场渗透</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="text-lg font-semibold text-warm-gray mb-3">
+                    <i class="fas fa-mobile-alt mr-2"></i>科技龙头企业-终端品牌
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-3"><strong>目标企业：</strong>小米、OPPO、华硕</p>
+                  <p class="text-sm text-gray-600 mb-3"><strong>核心诉求：</strong>年轻用户触达、产品创新灵感、品牌年轻化</p>
+                  <p class="text-sm text-gray-600"><strong>匹配价值：</strong>产品体验区、用户研究、设计合作</p>
+                </div>
+              </div>
+              <div class="space-y-6">
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="text-lg font-semibold text-muted-green mb-3">
+                    <i class="fas fa-university mr-2"></i>金融机构-银行
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-3"><strong>目标机构：</strong>浦发银行、台资银行（富邦华一、国泰世华）</p>
+                  <p class="text-sm text-gray-600 mb-3"><strong>核心诉求：</strong>企业客户获取、跨境金融服务、品牌社会责任</p>
+                  <p class="text-sm text-gray-600"><strong>匹配价值：</strong>联名卡、企业客户邀请、台湾团队金融服务</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="text-lg font-semibold text-deep-blue mb-3">
+                    <i class="fas fa-chart-line mr-2"></i>金融机构-投资机构
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-3"><strong>目标机构：</strong>红杉中国、高瓴资本、台湾工研院创投</p>
+                  <p class="text-sm text-gray-600 mb-3"><strong>核心诉求：</strong>早期项目源、技术趋势洞察、两岸布局</p>
+                  <p class="text-sm text-gray-600"><strong>匹配价值：</strong>项目直投、评审参与、投后服务</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="text-lg font-semibold text-sage mb-3">
+                    <i class="fas fa-landmark mr-2"></i>政府与园区
+                  </h4>
+                  <p class="text-sm text-gray-600 mb-3"><strong>目标机构：</strong>国台办交流基金、福建省台港澳办、厦门火炬高新区、平潭综合实验区</p>
+                  <p class="text-sm text-gray-600 mb-3"><strong>核心诉求：</strong>对台工作成果、产业招商、人才集聚</p>
+                  <p class="text-sm text-gray-600"><strong>匹配价值：</strong>资金支持、政策背书、孵化资源</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sponsorship Tiers -->
+          <div class="mb-16">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8">赞助层级与回报方案</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <!-- Strategic Partner -->
+              <div class="bg-gradient-to-br from-yellow-400 to-yellow-600 text-white rounded-lg p-6 shadow-lg">
+                <h4 class="text-lg font-bold mb-4">战略合作伙伴</h4>
+                <div class="text-3xl font-bold mb-2">200万+</div>
+                <div class="space-y-3 text-sm">
+                  <div>
+                    <h5 class="font-semibold mb-1">核心权益</h5>
+                    <ul class="space-y-1 text-xs opacity-90">
+                      <li>• 联合冠名（如"阿里云AI专项赛道"）</li>
+                      <li>• 主旨演讲15分钟</li>
+                      <li>• Logo全场最大露出</li>
+                      <li>• 人才优先对接</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-1">专属权益</h5>
+                    <ul class="space-y-1 text-xs opacity-90">
+                      <li>• 专属赛道命名</li>
+                      <li>• 获奖项目优先投资权</li>
+                      <li>• 次年赛事联合主办优先权</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gold Sponsor -->
+              <div class="bg-gradient-to-br from-gray-400 to-gray-600 text-white rounded-lg p-6 shadow-lg">
+                <h4 class="text-lg font-bold mb-4">金牌赞助商</h4>
+                <div class="text-3xl font-bold mb-2">80-150万</div>
+                <div class="space-y-3 text-sm">
+                  <div>
+                    <h5 class="font-semibold mb-1">核心权益</h5>
+                    <ul class="space-y-1 text-xs opacity-90">
+                      <li>• Logo主视觉露出</li>
+                      <li>• 技术工作坊1场</li>
+                      <li>• 展位20㎡</li>
+                      <li>• 评审席位1个</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-1">专属权益</h5>
+                    <ul class="space-y-1 text-xs opacity-90">
+                      <li>• 技术认证课程合作</li>
+                      <li>• 简历库全量访问</li>
+                      <li>• 年度品牌活动联合</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Silver Sponsor -->
+              <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white rounded-lg p-6 shadow-lg">
+                <h4 class="text-lg font-bold mb-4">银牌赞助商</h4>
+                <div class="text-3xl font-bold mb-2">30-80万</div>
+                <div class="space-y-3 text-sm">
+                  <div>
+                    <h5 class="font-semibold mb-1">核心权益</h5>
+                    <ul class="space-y-1 text-xs opacity-90">
+                      <li>• Logo宣传物料露出</li>
+                      <li>• 产品体验区10㎡</li>
+                      <li>• 简历库抽样访问</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-1">专属权益</h5>
+                    <ul class="space-y-1 text-xs opacity-90">
+                      <li>• 校园大使计划</li>
+                      <li>• 技术社区运营支持</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Supporting Partner -->
+              <div class="bg-gradient-to-br from-green-400 to-green-600 text-white rounded-lg p-6 shadow-lg">
+                <h4 class="text-lg font-bold mb-4">支持单位</h4>
+                <div class="text-3xl font-bold mb-2">10-30万</div>
+                <div class="space-y-3 text-sm">
+                  <div>
+                    <h5 class="font-semibold mb-1">核心权益</h5>
+                    <ul class="space-y-1 text-xs opacity-90">
+                      <li>• 鸣谢、宣传物料Logo</li>
+                      <li>• 观摩名额5个</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold mb-1">专属权益</h5>
+                    <ul class="space-y-1 text-xs opacity-90">
+                      <li>• 次年升级优先权</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Special Sponsorship Benefits -->
+          <div class="bg-white rounded-lg p-8 shadow-sm">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">特色赞助权益设计</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-6">
+                <div class="border-l-4 border-deep-blue pl-6">
+                  <h4 class="text-lg font-semibold text-deep-blue mb-2">&#34;两岸青年创业基金&#34;</h4>
+                  <p class="text-gray-600 mb-2">获奖项目直投通道，单项目50-200万天使投资</p>
+                  <p class="text-sm text-gray-500">适用层级：战略合作伙伴</p>
+                  <p class="text-sm text-gray-500">预期效果：缩短投资周期，提升项目落地率</p>
+                </div>
+                <div class="border-l-4 border-sage pl-6">
+                  <h4 class="text-lg font-semibold text-sage mb-2">&#34;技术大使&#34;计划</h4>
+                  <p class="text-gray-600 mb-2">赞助商技术专家担任团队导师，全程跟进2-3支团队</p>
+                  <p class="text-sm text-gray-500">适用层级：金牌及以上</p>
+                  <p class="text-sm text-gray-500">预期效果：深度技术绑定，人才早期识别</p>
+                </div>
+              </div>
+              <div class="space-y-6">
+                <div class="border-l-4 border-warm-gray pl-6">
+                  <h4 class="text-lg font-semibold text-warm-gray mb-2">&#34;人才直通车&#34;</h4>
+                  <p class="text-gray-600 mb-2">优秀选手实习/就业绿色通道，免笔试直达终面</p>
+                  <p class="text-sm text-gray-500">适用层级：金牌及以上</p>
+                  <p class="text-sm text-gray-500">预期效果：降低招聘成本，提升雇主品牌</p>
+                </div>
+                <div class="border-l-4 border-muted-green pl-6">
+                  <h4 class="text-lg font-semibold text-muted-green mb-2">&#34;联合品牌&#34;活动</h4>
+                  <p class="text-gray-600 mb-2">赞助商品牌与赛事IP联合，如"AMD AI创新赛道"</p>
+                  <p class="text-sm text-gray-500">适用层级：战略合作伙伴</p>
+                  <p class="text-sm text-gray-500">预期效果：品牌技术领导力强化</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Post-event Activities -->
+      <section id="post-activities" class="bg-soft-beige py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <h2 class="text-4xl font-serif italic text-deep-blue mb-12 text-center">赛后活动：厦门游玩系列</h2>
+          <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">赛事结束后，为增进两岸青年交流与了解，特别组织"厦门游玩系列"活动，让参赛选手在竞技之余感受厦门魅力。</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+              <div class="w-16 h-16 bg-deep-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-mountain text-white text-xl"></i>
+              </div>
+              <h4 class="font-semibold text-deep-blue text-center mb-3">特色景点游览</h4>
+              <p class="text-sm text-gray-600 text-center">精选三个厦门特色景点，让两岸青年在游览中增进友谊，体验闽南文化风情</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+              <div class="w-16 h-16 bg-sage rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-ship text-white text-xl"></i>
+              </div>
+              <h4 class="font-semibold text-sage text-center mb-3">帆船体验</h4>
+              <p class="text-sm text-gray-600 text-center">安排帆船体验活动，在海上感受厦门风光，培养团队协作精神</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+              <div class="w-16 h-16 bg-warm-gray rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-building text-white text-xl"></i>
+              </div>
+              <h4 class="font-semibold text-warm-gray text-center mb-3">台湾青年创业基地参观</h4>
+              <p class="text-sm text-gray-600 text-center">参观厦门台湾青年创业基地，了解两岸青年创业政策与成功案例，为后续创业打下基础</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+              <div class="w-16 h-16 bg-muted-green rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-utensils text-white text-xl"></i>
+              </div>
+              <h4 class="font-semibold text-muted-green text-center mb-3">闽台美食体验</h4>
+              <p class="text-sm text-gray-600 text-center">品尝厦门地道闽南美食与台湾风味小吃，感受两岸共同的饮食文化</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conclusion -->
+      <section class="bg-gradient-to-br from-deep-blue to-muted-green text-white py-16">
+        <div class="max-w-4xl mx-auto px-8 text-center">
+          <h2 class="text-3xl font-serif italic mb-8">智联两岸 · 创见未来</h2>
+          <blockquote class="text-xl font-light mb-8 opacity-90">
+            &#34;本届&#39;海峡智创Hackathon 2026&#39;不仅是技术竞赛，更是青年联结、产业对接、文化认同的多维平台。以AI创新为纽带，两岸青年开发者将在48小时的高强度协作中，书写&#39;智联两岸·创见未来&#39;的新篇章。&#34;
+          </blockquote>
+          <div class="flex justify-center items-center space-x-8 text-sm opacity-80">
+            <div class="text-center">
+              <div class="text-2xl font-bold mb-1">300-400</div>
+              <div>参赛人数</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold mb-1">80-100</div>
+              <div>参赛团队</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold mb-1">38万</div>
+              <div>奖金额度</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold mb-1">200万</div>
+              <div>总预算</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Smooth Scrolling Script -->
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#10283c',
+                primaryTextColor: '#f7ebcc',
+                primaryBorderColor: '#e1bf74',
+                lineColor: 'rgba(225, 191, 116, 0.62)',
+                secondaryColor: '#143047',
+                tertiaryColor: '#17354f',
+                background: '#0a1621',
+                mainBkg: '#0d1d2c',
+                secondBkg: '#10283c',
+                tertiaryBkg: '#143047',
+                secondaryTextColor: '#f7ebcc',
+                tertiaryTextColor: '#f7ebcc',
+                cScale0: '#10283c',
+                cScale1: '#143047', 
+                cScale2: '#17354f',
+                cScale3: '#1c3f59',
+                cScale4: '#0d1d2c',
+                cScale5: '#0b1825',
+                cScale6: '#10283c',
+                cScale7: '#143047'
+            },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            sequence: {
+                useMaxWidth: false,
+                wrap: true
+            },
+            gantt: {
+                useMaxWidth: false
+            }
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        // Initialize mermaid controls after page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMermaidControls();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight active section in TOC
+        function updateActiveTOC() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('#toc .nav-link[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('nav-link-active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('nav-link-active');
+                }
+            });
+        }
+
+        // Add event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('scroll', updateActiveTOC);
+            updateActiveTOC();
+        });
+    </script>
+
+    <!-- Simplified/Traditional Chinese Conversion Script -->
+    <script>
+        // State: 'tw' = Traditional (default), 'cn' = Simplified
+        let currentLang = 'cn'; // starts as CN in source, will convert to TW on load
+
+        // Converters
+        let converterToTW = null;
+        let converterToCN = null;
+
+        // Initialize converters and convert page to Traditional on load
+        function initLangConversion() {
+            try {
+                converterToTW = OpenCC.Converter({ from: 'cn', to: 'twp' });
+                converterToCN = OpenCC.Converter({ from: 'twp', to: 'cn' });
+
+                // Convert entire page to Traditional Chinese on load
+                convertPageText(converterToTW);
+                currentLang = 'tw';
+                updateToggleButton();
+            } catch (e) {
+                console.warn('OpenCC initialization failed, trying alternative config:', e);
+                try {
+                    converterToTW = OpenCC.Converter({ from: 'cn', to: 'tw' });
+                    converterToCN = OpenCC.Converter({ from: 'tw', to: 'cn' });
+                    convertPageText(converterToTW);
+                    currentLang = 'tw';
+                    updateToggleButton();
+                } catch (e2) {
+                    console.error('OpenCC failed:', e2);
+                }
+            }
+        }
+
+        // Convert all text nodes in the page
+        function convertPageText(converter) {
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                {
+                    acceptNode: function(node) {
+                        // Skip script and style tags
+                        const parent = node.parentElement;
+                        if (!parent) return NodeFilter.FILTER_REJECT;
+                        const tag = parent.tagName.toLowerCase();
+                        if (tag === 'script' || tag === 'style' || tag === 'code' || tag === 'pre') {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+                        // Skip mermaid diagram text (handled separately)
+                        if (parent.closest('.mermaid') && parent.closest('.mermaid').querySelector('svg')) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+                        return NodeFilter.FILTER_ACCEPT;
+                    }
+                }
+            );
+
+            const textNodes = [];
+            while (walker.nextNode()) {
+                textNodes.push(walker.currentNode);
+            }
+
+            textNodes.forEach(node => {
+                const original = node.textContent;
+                if (original.trim()) {
+                    node.textContent = converter(original);
+                }
+            });
+
+            // Also convert title
+            document.title = converter(document.title);
+
+            // Convert placeholder and title attributes
+            document.querySelectorAll('[placeholder], [title], [alt]').forEach(el => {
+                if (el.getAttribute('placeholder')) {
+                    el.setAttribute('placeholder', converter(el.getAttribute('placeholder')));
+                }
+                if (el.getAttribute('title')) {
+                    el.setAttribute('title', converter(el.getAttribute('title')));
+                }
+                if (el.getAttribute('alt')) {
+                    el.setAttribute('alt', converter(el.getAttribute('alt')));
+                }
+            });
+        }
+
+        function toggleLang() {
+            if (!converterToTW || !converterToCN) return;
+
+            if (currentLang === 'tw') {
+                convertPageText(converterToCN);
+                currentLang = 'cn';
+            } else {
+                convertPageText(converterToTW);
+                currentLang = 'tw';
+            }
+            updateToggleButton();
+        }
+
+        function updateToggleButton() {
+            const icon = document.querySelector('.lang-toggle .lang-icon');
+            const label = document.getElementById('langLabel');
+            if (currentLang === 'tw') {
+                icon.textContent = '繁';
+                label.textContent = '切換簡體';
+                document.documentElement.lang = 'zh-TW';
+            } else {
+                icon.textContent = '简';
+                label.textContent = '切换繁体';
+                document.documentElement.lang = 'zh-CN';
+            }
+        }
+
+        // Wait for page content and mermaid to render, then convert
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                // Give mermaid time to render, then convert
+                setTimeout(initLangConversion, 1500);
+            });
+        } else {
+            setTimeout(initLangConversion, 1500);
+        }
+    </script>
+
+</body></html>
